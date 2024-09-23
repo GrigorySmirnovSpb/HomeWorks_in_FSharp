@@ -1,45 +1,30 @@
-﻿namespace Fib
-
-open System
+﻿namespace QuickSort
 
 module Say =
-    type Matrix = int array array
+    let rec QuickSort (arr1: int array) (l: int) (r: int) : int array =
+        let mutable arr: int array = arr1
+        let pivot: int = arr.[(l + r) / 2]
+        let mutable i: int = l
+        let mutable j: int = r
 
-    let q: Matrix = [| [| 1; 1 |]; [| 1; 0 |] |]
+        while i <= j do
+            while arr.[i] < pivot do
+                i <- i + 1
 
-    let createMatrixArray (size: int) (rows: int) (cols: int) : Matrix array =
-        Array.init size (fun _ -> Array.init rows (fun _ -> Array.init cols (fun _ -> 0)))
+            while arr.[j] > pivot do
+                j <- j - 1
 
-    let multiplyMatrix (mat1: Matrix) (mat2: Matrix) : Matrix =
-        let res = Array.init 2 (fun _ -> Array.create 2 0)
+            if i <= j then
+                let c = arr.[i]
+                arr.[i] <- arr.[j]
+                arr.[j] <- c
+                i <- i + 1
+                j <- j - 1
 
-        for i in 0..1 do
-            for j in 0..1 do
-                for k in 0..1 do
-                    res.[i].[j] <- res.[i].[j] + mat1.[i].[k] * mat2.[k].[j]
+        if l < j then
+            arr <- QuickSort arr l j
 
-        res
+        if r > i then
+            arr <- QuickSort arr i r
 
-    let mutable ArrMatr = createMatrixArray 100 2 2
-    ArrMatr.[1] <- [| [| 1; 1 |]; [| 1; 0 |] |]
-
-    let rec powerMatrix (mat: Matrix) (p: int) : Matrix =
-        if p = 1 then
-            mat
-        else if ArrMatr.[p].[0].[0] <> 0 then
-            ArrMatr.[p]
-        else
-            let m1 = powerMatrix mat (p / 2)
-            let m2 = powerMatrix mat (p / 2 + p % 2)
-            let res = multiplyMatrix m1 m2
-            ArrMatr.[p] <- res
-            res
-
-    let getnumber (n: int) : int =
-        if n = 0 then
-            0
-        else if n = 1 then
-            1
-        else
-            let resmat = powerMatrix q (n - 1)
-            resmat.[0].[0]
+        arr
