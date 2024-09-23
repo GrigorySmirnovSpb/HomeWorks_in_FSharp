@@ -1,11 +1,14 @@
-namespace tests
+namespace FacTest
 
 open System
 open Microsoft.VisualStudio.TestTools.UnitTesting
+open FactorLib
 
 [<TestClass>]
-type TestClass () =
+type TestClass() =
 
     [<TestMethod>]
-    member this.TestMethodPassing () =
-        Assert.IsTrue(true);
+    member this.TestMethodPassing() =
+        let expected = 120
+        let actual = FactorLib.Say.factor 5
+        Assert.AreEqual(expected, actual)
