@@ -9,6 +9,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Lib", "src\Lib\Lib.fsproj",
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "tests", "tests\tests.fsproj", "{3CEAF500-EBC6-4187-9B71-423FD8BD26AA}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "QuickSort", "src\Lib\QuickSort.fsproj", "{463CA648-F6F9-4674-A616-5097D625C5DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,8 +28,13 @@ Global
 		{3CEAF500-EBC6-4187-9B71-423FD8BD26AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CEAF500-EBC6-4187-9B71-423FD8BD26AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CEAF500-EBC6-4187-9B71-423FD8BD26AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{463CA648-F6F9-4674-A616-5097D625C5DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{463CA648-F6F9-4674-A616-5097D625C5DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{463CA648-F6F9-4674-A616-5097D625C5DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{463CA648-F6F9-4674-A616-5097D625C5DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{33429C1B-060E-457F-8127-EC739AA9C0FD} = {B37FA1B8-D90C-44BB-9BD4-58EF0B95D1BA}
+		{463CA648-F6F9-4674-A616-5097D625C5DF} = {B37FA1B8-D90C-44BB-9BD4-58EF0B95D1BA}
 	EndGlobalSection
 EndGlobal
