@@ -1,6 +1,6 @@
 ﻿namespace QuickSort
 
-module Say =
+module Quicksort =
     let rec QuickSort (arr1: int array) (l: int) (r: int) : int array =
         let mutable arr: int array = arr1
         let pivot: int = arr.[(l + r) / 2]
