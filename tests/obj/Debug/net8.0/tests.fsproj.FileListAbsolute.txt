@@ -132,3 +132,6 @@
 /home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/Factor.dll
 /home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/Factor.pdb
 /home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/Factor.xml
+/home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/QuickSort.dll
+/home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/QuickSort.pdb
+/home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/QuickSort.xml

@@ -15,6 +15,7 @@
           "MSTest.TestAdapter": "3.0.4",
           "MSTest.TestFramework": "3.0.4",
           "Microsoft.NET.Test.Sdk": "17.6.0",
+          "QuickSort": "1.0.0",
           "coverlet.collector": "6.0.0",
           "Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions": "14.0.0.0"
         },
@@ -424,6 +425,14 @@
           "Fib.dll": {}
         }
       },
+      "QuickSort/1.0.0": {
+        "dependencies": {
+          "FSharp.Core": "8.0.102"
+        },
+        "runtime": {
+          "QuickSort.dll": {}
+        }
+      },
       "Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions/14.0.0.0": {
         "runtime": {
           "Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll": {
@@ -528,6 +537,11 @@
       "sha512": ""
     },
     "Fib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "QuickSort/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -71,3 +71,27 @@ type TestClass() =
         let expected = 1
         let actual = FactorLib.Factor.factor 1
         Assert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing12() =
+        let expected: int[] = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
+        let actual: int[] = QuickSort.Quicksort.QuickSort [| 3; 4; 1; 8; 5; 2; 7; 6 |] 0 7
+        CollectionAssert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing13() =
+        let expected: int[] = [| -12; -4; 0; 4; 7; 10 |]
+        let actual: int[] = QuickSort.Quicksort.QuickSort [| 0; 10; -4; 4; 7; -12 |] 0 5
+        CollectionAssert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing14() =
+        let expected: int[] = [| 1 |]
+        let actual: int[] = QuickSort.Quicksort.QuickSort [| 1 |] 0 0
+        CollectionAssert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing15() =
+        let expected: int[] = [| -10; -10; -6; 0; 0 |]
+        let actual: int[] = QuickSort.Quicksort.QuickSort [| 0; -10; -6; 0; -10 |] 0 4
+        CollectionAssert.AreEqual(expected, actual)
