@@ -4,6 +4,63 @@
     "/home/gregory/demo_2024/FsharpProj/tests/tests.fsproj": {}
   },
   "projects": {
+    "/home/gregory/demo_2024/FsharpProj/src/BubbleSort/BubbleSort.fsproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/gregory/demo_2024/FsharpProj/src/BubbleSort/BubbleSort.fsproj",
+        "projectName": "BubbleSort",
+        "projectPath": "/home/gregory/demo_2024/FsharpProj/src/BubbleSort/BubbleSort.fsproj",
+        "packagesPath": "/home/gregory/.nuget/packages/",
+        "outputPath": "/home/gregory/demo_2024/FsharpProj/src/BubbleSort/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/gregory/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "/usr/lib/dotnet/sdk/8.0.108/FSharp/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "FSharp.Core": {
+              "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
+              "target": "Package",
+              "version": "[8.0.102, )",
+              "generatePathProperty": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.108/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/home/gregory/demo_2024/FsharpProj/src/Fib/Fib.fsproj": {
       "version": "1.0.0",
       "restore": {
@@ -84,6 +141,9 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+              "/home/gregory/demo_2024/FsharpProj/src/BubbleSort/BubbleSort.fsproj": {
+                "projectPath": "/home/gregory/demo_2024/FsharpProj/src/BubbleSort/BubbleSort.fsproj"
+              },
               "/home/gregory/demo_2024/FsharpProj/src/Fib/Fib.fsproj": {
                 "projectPath": "/home/gregory/demo_2024/FsharpProj/src/Fib/Fib.fsproj"
               }

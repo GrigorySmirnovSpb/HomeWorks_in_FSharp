@@ -126,3 +126,6 @@
 /home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/Fib.dll
 /home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/Fib.pdb
 /home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/Fib.xml
+/home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/BubbleSort.dll
+/home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/BubbleSort.pdb
+/home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/BubbleSort.xml
