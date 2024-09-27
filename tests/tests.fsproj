@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\Lib\Lib.fsproj" />
+    <ProjectReference Include="..\src\Fib\Fib.fsproj" />
   </ItemGroup>
 
 </Project>

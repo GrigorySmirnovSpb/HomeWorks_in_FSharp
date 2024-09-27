@@ -1,0 +1,14 @@
+/home/gregory/demo_2024/FsharpProj/src/Fib/bin/Debug/net8.0/Fib.deps.json
+/home/gregory/demo_2024/FsharpProj/src/Fib/bin/Debug/net8.0/Fib.dll
+/home/gregory/demo_2024/FsharpProj/src/Fib/bin/Debug/net8.0/Fib.pdb
+/home/gregory/demo_2024/FsharpProj/src/Fib/bin/Debug/net8.0/Fib.xml
+/home/gregory/demo_2024/FsharpProj/src/Fib/obj/Debug/net8.0/Fib.fsproj.AssemblyReference.cache
+/home/gregory/demo_2024/FsharpProj/src/Fib/obj/Debug/net8.0/Fib.AssemblyInfoInputs.cache
+/home/gregory/demo_2024/FsharpProj/src/Fib/obj/Debug/net8.0/Fib.AssemblyInfo.fs
+/home/gregory/demo_2024/FsharpProj/src/Fib/obj/Debug/net8.0/Fib.fsproj.CoreCompileInputs.cache
+/home/gregory/demo_2024/FsharpProj/src/Fib/obj/Debug/net8.0/Fib.sourcelink.json
+/home/gregory/demo_2024/FsharpProj/src/Fib/obj/Debug/net8.0/Fib.dll
+/home/gregory/demo_2024/FsharpProj/src/Fib/obj/Debug/net8.0/refint/Fib.dll
+/home/gregory/demo_2024/FsharpProj/src/Fib/obj/Debug/net8.0/Fib.xml
+/home/gregory/demo_2024/FsharpProj/src/Fib/obj/Debug/net8.0/Fib.pdb
+/home/gregory/demo_2024/FsharpProj/src/Fib/obj/Debug/net8.0/ref/Fib.dll

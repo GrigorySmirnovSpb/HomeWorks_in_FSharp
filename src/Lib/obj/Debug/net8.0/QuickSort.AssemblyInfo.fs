@@ -10,7 +10,7 @@ open System.Reflection
 [<assembly: System.Reflection.AssemblyCompanyAttribute("QuickSort")>]
 [<assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")>]
 [<assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")>]
-[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+666ce2d5e196c461b3add4a61381f70f2ab8f25a")>]
+[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab01f19c9089cda510a5ff0091419dcb8e75e73b")>]
 [<assembly: System.Reflection.AssemblyProductAttribute("QuickSort")>]
 [<assembly: System.Reflection.AssemblyTitleAttribute("QuickSort")>]
 [<assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")>]
