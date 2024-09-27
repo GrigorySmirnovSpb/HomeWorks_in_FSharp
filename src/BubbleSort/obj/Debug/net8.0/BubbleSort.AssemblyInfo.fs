@@ -10,7 +10,7 @@ open System.Reflection
 [<assembly: System.Reflection.AssemblyCompanyAttribute("BubbleSort")>]
 [<assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")>]
 [<assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")>]
-[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d5f65200c7936dc20aad6befe30abb07beaebbaa")>]
+[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fef22969219b10fa8770b949fe1ad4944f52203e")>]
 [<assembly: System.Reflection.AssemblyProductAttribute("BubbleSort")>]
 [<assembly: System.Reflection.AssemblyTitleAttribute("BubbleSort")>]
 [<assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")>]

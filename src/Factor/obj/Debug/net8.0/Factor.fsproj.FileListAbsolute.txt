@@ -1,0 +1,14 @@
+/home/gregory/demo_2024/FsharpProj/src/Factor/bin/Debug/net8.0/Factor.deps.json
+/home/gregory/demo_2024/FsharpProj/src/Factor/bin/Debug/net8.0/Factor.dll
+/home/gregory/demo_2024/FsharpProj/src/Factor/bin/Debug/net8.0/Factor.pdb
+/home/gregory/demo_2024/FsharpProj/src/Factor/bin/Debug/net8.0/Factor.xml
+/home/gregory/demo_2024/FsharpProj/src/Factor/obj/Debug/net8.0/Factor.fsproj.AssemblyReference.cache
+/home/gregory/demo_2024/FsharpProj/src/Factor/obj/Debug/net8.0/Factor.AssemblyInfoInputs.cache
+/home/gregory/demo_2024/FsharpProj/src/Factor/obj/Debug/net8.0/Factor.AssemblyInfo.fs
+/home/gregory/demo_2024/FsharpProj/src/Factor/obj/Debug/net8.0/Factor.fsproj.CoreCompileInputs.cache
+/home/gregory/demo_2024/FsharpProj/src/Factor/obj/Debug/net8.0/Factor.sourcelink.json
+/home/gregory/demo_2024/FsharpProj/src/Factor/obj/Debug/net8.0/Factor.dll
+/home/gregory/demo_2024/FsharpProj/src/Factor/obj/Debug/net8.0/refint/Factor.dll
+/home/gregory/demo_2024/FsharpProj/src/Factor/obj/Debug/net8.0/Factor.xml
+/home/gregory/demo_2024/FsharpProj/src/Factor/obj/Debug/net8.0/Factor.pdb
+/home/gregory/demo_2024/FsharpProj/src/Factor/obj/Debug/net8.0/ref/Factor.dll

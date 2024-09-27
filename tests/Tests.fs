@@ -53,3 +53,21 @@ type TestClass() =
         let expected = 1
         let actual = Fib.Fib.getnumber 2
         Assert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing9() =
+        let expected = 120
+        let actual = FactorLib.Factor.factor 5
+        Assert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing10() =
+        let expected = 39916800
+        let actual = FactorLib.Factor.factor 11
+        Assert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing11() =
+        let expected = 1
+        let actual = FactorLib.Factor.factor 1
+        Assert.AreEqual(expected, actual)

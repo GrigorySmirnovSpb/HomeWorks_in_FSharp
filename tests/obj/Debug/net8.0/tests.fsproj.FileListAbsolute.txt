@@ -129,3 +129,6 @@
 /home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/BubbleSort.dll
 /home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/BubbleSort.pdb
 /home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/BubbleSort.xml
+/home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/Factor.dll
+/home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/Factor.pdb
+/home/gregory/demo_2024/FsharpProj/tests/bin/Debug/net8.0/Factor.xml

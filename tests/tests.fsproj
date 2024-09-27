@@ -24,6 +24,7 @@
     <ProjectReference Include="..\src\Lib\Lib.fsproj" />
     <ProjectReference Include="..\src\Fib\Fib.fsproj" />
     <ProjectReference Include="..\src\BubbleSort\BubbleSort.fsproj" />
+    <ProjectReference Include="..\src\Factor\Factor.fsproj" />
   </ItemGroup>
 
 </Project>

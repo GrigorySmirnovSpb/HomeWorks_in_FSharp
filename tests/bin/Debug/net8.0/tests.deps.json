@@ -10,6 +10,7 @@
         "dependencies": {
           "BubbleSort": "1.0.0",
           "FSharp.Core": "8.0.102",
+          "Factor": "1.0.0",
           "Fib": "1.0.0",
           "MSTest.TestAdapter": "3.0.4",
           "MSTest.TestFramework": "3.0.4",
@@ -407,6 +408,14 @@
           "BubbleSort.dll": {}
         }
       },
+      "Factor/1.0.0": {
+        "dependencies": {
+          "FSharp.Core": "8.0.102"
+        },
+        "runtime": {
+          "Factor.dll": {}
+        }
+      },
       "Fib/1.0.0": {
         "dependencies": {
           "FSharp.Core": "8.0.102"
@@ -509,6 +518,11 @@
       "hashPath": "system.reflection.metadata.1.6.0.nupkg.sha512"
     },
     "BubbleSort/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Factor/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
