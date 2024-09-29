@@ -3,6 +3,7 @@
 module Quicksort =
     let rec QuickSort (arr1: int array) (l: int) (r: int) : int array =
         let mutable arr: int array = arr1
+        let (_,a) =(1,2)
         let pivot: int = arr.[(l + r) / 2]
         let mutable i: int = l
         let mutable j: int = r
