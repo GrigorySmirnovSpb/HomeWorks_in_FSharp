@@ -23,7 +23,7 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Setup Fsharlint
-    - uses: actions/setup-dotnet-fsharplint@v4
+      uses: actions/setup-dotnet-fsharplint@v4
       with:
         version: 0.24.x
     - name: Restore dependencies
