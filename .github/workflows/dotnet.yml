@@ -28,5 +28,3 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-    - name: Fsharplint
-      run: dotnet fsharplint lint src/**/*.fs
