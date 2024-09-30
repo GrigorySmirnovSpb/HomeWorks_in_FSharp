@@ -9,5 +9,5 @@ type TestClass() =
     [<TestMethod>]
     member this.TestMethodPassing() =
         let expected = 21
-        let actual = Fib.Say.getnumber 8
+        let actual = Fib.Fib.getnumber 8
         Assert.AreEqual(expected, actual)

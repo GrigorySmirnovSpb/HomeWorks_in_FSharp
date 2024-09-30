@@ -2,7 +2,7 @@
 
 open System
 
-module Say =
+module Fib =
     type Matrix = int array array
 
     let q: Matrix = [| [| 1; 1 |]; [| 1; 0 |] |]
