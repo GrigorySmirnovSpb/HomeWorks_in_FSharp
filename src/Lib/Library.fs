@@ -2,8 +2,8 @@
 
 open System
 
-module Say =
-    let mutable arr1: int array = Array.zeroCreate 5
+module Bubblesort =
+    let mutable arr1: int array = [||]
 
     let Bubblesort arr1 =
         let mutable f: int = 1
