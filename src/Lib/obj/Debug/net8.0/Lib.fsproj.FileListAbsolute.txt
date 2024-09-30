@@ -1,0 +1,14 @@
+/home/gregory/demo_2024/FsharpProj/src/Lib/bin/Debug/net8.0/Lib.deps.json
+/home/gregory/demo_2024/FsharpProj/src/Lib/bin/Debug/net8.0/Lib.dll
+/home/gregory/demo_2024/FsharpProj/src/Lib/bin/Debug/net8.0/Lib.pdb
+/home/gregory/demo_2024/FsharpProj/src/Lib/bin/Debug/net8.0/Lib.xml
+/home/gregory/demo_2024/FsharpProj/src/Lib/obj/Debug/net8.0/Lib.fsproj.AssemblyReference.cache
+/home/gregory/demo_2024/FsharpProj/src/Lib/obj/Debug/net8.0/Lib.AssemblyInfoInputs.cache
+/home/gregory/demo_2024/FsharpProj/src/Lib/obj/Debug/net8.0/Lib.AssemblyInfo.fs
+/home/gregory/demo_2024/FsharpProj/src/Lib/obj/Debug/net8.0/Lib.fsproj.CoreCompileInputs.cache
+/home/gregory/demo_2024/FsharpProj/src/Lib/obj/Debug/net8.0/Lib.sourcelink.json
+/home/gregory/demo_2024/FsharpProj/src/Lib/obj/Debug/net8.0/Lib.dll
+/home/gregory/demo_2024/FsharpProj/src/Lib/obj/Debug/net8.0/refint/Lib.dll
+/home/gregory/demo_2024/FsharpProj/src/Lib/obj/Debug/net8.0/Lib.xml
+/home/gregory/demo_2024/FsharpProj/src/Lib/obj/Debug/net8.0/Lib.pdb
+/home/gregory/demo_2024/FsharpProj/src/Lib/obj/Debug/net8.0/ref/Lib.dll
