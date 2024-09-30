@@ -10,5 +10,5 @@ type TestClass() =
     [<TestMethod>]
     member this.TestMethodPassing() =
         let expected = 120
-        let actual = FactorLib.Say.factor 5
+        let actual = FactorLib.Factor.factor 5
         Assert.AreEqual(expected, actual)
