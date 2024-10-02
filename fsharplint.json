@@ -1,8 +1,0 @@
-{
-    "globals": {
-        "numIndentationSpaces": 4
-    },
-    "tupleCommaSpacing": {
-        "enabled": false
-    }
-}
