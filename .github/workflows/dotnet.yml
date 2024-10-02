@@ -29,6 +29,6 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Fsharplint inst
-      run: dotnet tool install --global dotnet-fsharplint
+      run: dotnet tool install --local dotnet-fsharplint
     - name: Fshrplint run
       run: dotnet fsharplint lint Fsharp.sln
