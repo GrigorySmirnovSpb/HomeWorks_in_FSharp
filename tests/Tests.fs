@@ -1,4 +1,4 @@
-﻿namespace tests
+namespace tests
 
 open System
 open Microsoft.VisualStudio.TestTools.UnitTesting
