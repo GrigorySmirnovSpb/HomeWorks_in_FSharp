@@ -1,6 +1,13 @@
-﻿namespace FactorLib
+﻿namespace FactorialLib
 
 open System
 
-module Factor =
-    let rec factor x : int = if x < 2 then x else factor (x - 1) * x
+module Factorial =
+    let rec Factorial x : int = 
+        if x < 0 
+        then 0 
+        else if x = 0 
+        then 1
+        else if x < 2
+        then x
+        else Factorial (x - 1) * x
