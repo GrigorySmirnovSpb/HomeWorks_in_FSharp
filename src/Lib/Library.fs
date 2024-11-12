@@ -2,8 +2,7 @@
 
 module Quicksort =
     let QuickSort (arr1: int array) : int array =
-        let rec QuickHelper (arr1: int array) (l: int) (r: int) =
-            let mutable arr: int array = arr1
+        let rec QuickHelper (arr: int array) (l: int) (r: int) =
             let pivot: int = arr.[(l + r) / 2]
             let mutable i: int = l
             let mutable j: int = r
@@ -23,12 +22,13 @@ module Quicksort =
                     j <- j - 1
 
             if l < j then
-                arr <- QuickHelper arr l j
+                QuickHelper arr l j
 
             if r > i then
-                arr <- QuickHelper arr i r
+                QuickHelper arr i r
 
-            arr
         if arr1.Length > 0
-        then QuickHelper arr1 0 (arr1.Length-1)
+        then 
+            QuickHelper arr1 0 (arr1.Length-1)
+            arr1
         else [||]
