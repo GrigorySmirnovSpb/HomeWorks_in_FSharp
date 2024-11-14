@@ -3,8 +3,7 @@
 open System
 
 module Bubblesort =
-    let mutable arr1: int array = [||]
-
+    
     let Bubblesort arr1 =
         let mutable f: int = 1
         let mutable i: int = 0
