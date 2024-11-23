@@ -21,16 +21,16 @@ module Fib =
         res
 
 
-    let rec powerMatrix (ArrRef: ref<array<Matrix>>) (mat: Matrix) (p: int) : Matrix =
+    let rec powerMatrix (arr: array<Matrix>) (mat: Matrix) (p: int) : Matrix =
         if p = 1 then
             mat
-        else if ArrRef.Value.[p].[0].[0] <> 0 then
-            ArrRef.Value.[p]
+        else if arr.[p].[0].[0] <> 0 then
+            arr.[p]
         else
-            let m1 = powerMatrix ArrRef mat (p / 2)
-            let m2 = powerMatrix ArrRef mat (p / 2 + p % 2)
+            let m1 = powerMatrix arr mat (p / 2)
+            let m2 = powerMatrix arr mat (p / 2 + p % 2)
             let res = multiplyMatrix m1 m2
-            ArrRef.Value.[p] <- res
+            arr.[p] <- res
             res
 
     let getnumber (n: int) : int =
@@ -41,8 +41,7 @@ module Fib =
         else if n < 0 then
             0
         else
-            let mutable ArrMatr = createMatrixArray (n) 2 2
-            let mRef = ref ArrMatr
+            let ArrMatr = createMatrixArray (n) 2 2
             ArrMatr.[1] <- [| [| 1; 1 |]; [| 1; 0 |] |]
-            let resmat = powerMatrix mRef q (n-1)
+            let resmat = powerMatrix ArrMatr q (n-1)
             resmat.[0].[0]
