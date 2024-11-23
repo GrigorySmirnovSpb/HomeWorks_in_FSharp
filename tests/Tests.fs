@@ -6,146 +6,146 @@ open Microsoft.VisualStudio.TestTools.UnitTesting
 type TestClass() =
 
     [<TestMethod>]
-    member this.TestMethodPassing1() =
+    member this.TestFibonacci1() =
         let expected = 0
         let actual = FibLib.Fib.getnumber 0
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing2() =
+    member this.TestFibonacci2() =
         let expected = 1
         let actual = FibLib.Fib.getnumber 1
         Assert.AreEqual(expected, actual)
 
 
     [<TestMethod>]
-    member this.TestMethodPassing3() =
+    member this.TestFibonacci3() =
         let expected = 1
         let actual = FibLib.Fib.getnumber 2
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing4() =
+    member this.TestFibonacci4() =
         let expected = 4181
         let actual = FibLib.Fib.getnumber 19
         Assert.AreEqual(expected, actual)
     
 
     [<TestMethod>]
-    member this.TestMethodPassing5() =
+    member this.TestFibonacci5() =
         let expected = 121393
         let actual = FibLib.Fib.getnumber 26
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing6() =
+    member this.TestFibonacci6() =
         let expected = 0
         let actual = FibLib.Fib.getnumber -1
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing7() =
+    member this.TestFactorial1() =
         let expected = 3628800
         let actual = FactorialLib.Factorial.Factorial 10
         Assert.AreEqual(expected, actual)
 
-    member this.TestMethodPassing8() =
+    member this.TestFactorial2() =
         let expected = 120
         let actual = FactorialLib.Factorial.Factorial 5
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing9() =
+    member this.TestFactorial3() =
         let expected = 1
         let actual = FactorialLib.Factorial.Factorial 1
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing10() =
+    member this.TestFactorial4() =
         let expected = 1
         let actual = FactorialLib.Factorial.Factorial 0
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing11() =
+    member this.TestFactorial5() =
         let expected = 0
         let actual = FactorialLib.Factorial.Factorial -15
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing12() =
+    member this.TestBubbleSort1() =
         let expected: int[] = [| -12; -4; 0; 4; 7; 10 |]
         let actual: int[] = BubbleLib.Bubblesort.Bubblesort [| 0; 10; -4; 4; 7; -12 |]
         CollectionAssert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing13() =
+    member this.TestBubbleSort2() =
         let expected: int[] = [| 1 |]
         let actual: int[] = BubbleLib.Bubblesort.Bubblesort [| 1 |]
         CollectionAssert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing14() =
+    member this.TestBubbleSort3() =
         let expected: int[] = [| -10; -10; -6; 0; 0 |]
         let actual: int[] = BubbleLib.Bubblesort.Bubblesort [| 0; -10; -6; 0; -10 |]
         CollectionAssert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing15() =
+    member this.TestBubbleSort4() =
         let expected: int[] = [||]
         let actual: int[] = BubbleLib.Bubblesort.Bubblesort [||]
         CollectionAssert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing16() =
+    member this.TestBubbleSort5() =
         let expected: int[] = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
         let actual: int[] = BubbleLib.Bubblesort.Bubblesort [| 1; 2; 3; 4; 5; 6; 7; 8 |]
         CollectionAssert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing17() =
+    member this.TestBubbleSort6() =
         let expected: int[] = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
         let actual: int[] = BubbleLib.Bubblesort.Bubblesort [| 8; 7; 6; 5; 4; 3; 2; 1|]
         CollectionAssert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing18() =
+    member this.TestBubbleSort7() =
         let expected: int[] = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
         let actual: int[] = BubbleLib.Bubblesort.Bubblesort [| 3; 4; 1; 8; 5; 2; 7; 6 |]
         CollectionAssert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing19() =
+    member this.TestQuickSort1() =
         let expected: int[] = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
         let actual: int[] = QuickSort.Quicksort.QuickSort [| 3; 4; 1; 8; 5; 2; 7; 6 |]
         CollectionAssert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing20() =
+    member this.TestQuickSort2() =
         let expected: int[] = [| -12; -4; 0; 4; 7; 10 |]
         let actual: int[] = QuickSort.Quicksort.QuickSort [| 0; 10; -4; 4; 7; -12 |]
         CollectionAssert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing21() =
+    member this.TestQuickSort3() =
         let expected: int[] = [| 1 |]
         let actual: int[] = QuickSort.Quicksort.QuickSort [| 1 |]
         CollectionAssert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing22() =
+    member this.TestQuickSort4() =
         let expected: int[] = [| -10; -10; -6; 0; 0 |]
         let actual: int[] = QuickSort.Quicksort.QuickSort [| 0; -10; -6; 0; -10 |]
         CollectionAssert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing23() =
+    member this.TestQuickSort5() =
         let expected: int[] = [||]
         let actual: int[] = QuickSort.Quicksort.QuickSort [||]
         CollectionAssert.AreEqual(expected, actual)
     
     [<TestMethod>]
-    member this.TestMethodPassing24() =
+    member this.TestQuickSort6() =
         let expected: int[] = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
         let actual: int[] = QuickSort.Quicksort.QuickSort [| 1; 2; 3; 4; 5; 6; 7; 8 |]
         CollectionAssert.AreEqual(expected, actual)
