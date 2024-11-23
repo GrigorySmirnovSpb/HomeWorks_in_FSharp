@@ -1,7 +1,5 @@
 ﻿namespace FibLib
 
-open System
-
 module Fib =
     type Matrix = int array array
 
@@ -45,3 +43,16 @@ module Fib =
             ArrMatr.[1] <- [| [| 1; 1 |]; [| 1; 0 |] |]
             let resmat = powerMatrix ArrMatr q (n-1)
             resmat.[0].[0]
+
+namespace FactorialLib
+
+module Factorial =
+    let rec Factorial x : int = 
+        if x < 0 
+        then 0 
+        else if x = 0 
+        then 1
+        else if x < 2
+        then x
+        else Factorial (x - 1) * x
+
