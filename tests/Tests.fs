@@ -1,4 +1,4 @@
-namespace FactorialTest
+namespace tests
 
 open Microsoft.VisualStudio.TestTools.UnitTesting
 
@@ -113,3 +113,40 @@ type TestClass() =
         let expected: int[] = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
         let actual: int[] = BubbleLib.Bubblesort.Bubblesort [| 3; 4; 1; 8; 5; 2; 7; 6 |]
         CollectionAssert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing19() =
+        let expected: int[] = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
+        let actual: int[] = QuickSort.Quicksort.QuickSort [| 3; 4; 1; 8; 5; 2; 7; 6 |]
+        CollectionAssert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing20() =
+        let expected: int[] = [| -12; -4; 0; 4; 7; 10 |]
+        let actual: int[] = QuickSort.Quicksort.QuickSort [| 0; 10; -4; 4; 7; -12 |]
+        CollectionAssert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing21() =
+        let expected: int[] = [| 1 |]
+        let actual: int[] = QuickSort.Quicksort.QuickSort [| 1 |]
+        CollectionAssert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing22() =
+        let expected: int[] = [| -10; -10; -6; 0; 0 |]
+        let actual: int[] = QuickSort.Quicksort.QuickSort [| 0; -10; -6; 0; -10 |]
+        CollectionAssert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing23() =
+        let expected: int[] = [||]
+        let actual: int[] = QuickSort.Quicksort.QuickSort [||]
+        CollectionAssert.AreEqual(expected, actual)
+    
+    [<TestMethod>]
+    member this.TestMethodPassing24() =
+        let expected: int[] = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
+        let actual: int[] = QuickSort.Quicksort.QuickSort [| 1; 2; 3; 4; 5; 6; 7; 8 |]
+        CollectionAssert.AreEqual(expected, actual)
+
