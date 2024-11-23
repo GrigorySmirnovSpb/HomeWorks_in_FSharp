@@ -1,7 +1,6 @@
 namespace FactorialTest
 
 open Microsoft.VisualStudio.TestTools.UnitTesting
-open FactorialLib
 
 [<TestClass>]
 type TestClass() =
@@ -20,55 +19,97 @@ type TestClass() =
 
 
     [<TestMethod>]
-    member this.TestMethodPassing7() =
+    member this.TestMethodPassing3() =
         let expected = 1
         let actual = FibLib.Fib.getnumber 2
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing8() =
+    member this.TestMethodPassing4() =
         let expected = 4181
         let actual = FibLib.Fib.getnumber 19
         Assert.AreEqual(expected, actual)
     
 
     [<TestMethod>]
-    member this.TestMethodPassing4() =
+    member this.TestMethodPassing5() =
         let expected = 121393
         let actual = FibLib.Fib.getnumber 26
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing5() =
+    member this.TestMethodPassing6() =
         let expected = 0
         let actual = FibLib.Fib.getnumber -1
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing6() =
+    member this.TestMethodPassing7() =
         let expected = 3628800
         let actual = FactorialLib.Factorial.Factorial 10
         Assert.AreEqual(expected, actual)
 
-    member this.TestMethodPassing() =
+    member this.TestMethodPassing8() =
         let expected = 120
         let actual = FactorialLib.Factorial.Factorial 5
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing3() =
+    member this.TestMethodPassing9() =
         let expected = 1
         let actual = FactorialLib.Factorial.Factorial 1
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing9() =
+    member this.TestMethodPassing10() =
         let expected = 1
         let actual = FactorialLib.Factorial.Factorial 0
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
-    member this.TestMethodPassing10() =
+    member this.TestMethodPassing11() =
         let expected = 0
         let actual = FactorialLib.Factorial.Factorial -15
         Assert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing12() =
+        let expected: int[] = [| -12; -4; 0; 4; 7; 10 |]
+        let actual: int[] = BubbleLib.Bubblesort.Bubblesort [| 0; 10; -4; 4; 7; -12 |]
+        CollectionAssert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing13() =
+        let expected: int[] = [| 1 |]
+        let actual: int[] = BubbleLib.Bubblesort.Bubblesort [| 1 |]
+        CollectionAssert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing14() =
+        let expected: int[] = [| -10; -10; -6; 0; 0 |]
+        let actual: int[] = BubbleLib.Bubblesort.Bubblesort [| 0; -10; -6; 0; -10 |]
+        CollectionAssert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing15() =
+        let expected: int[] = [||]
+        let actual: int[] = BubbleLib.Bubblesort.Bubblesort [||]
+        CollectionAssert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing16() =
+        let expected: int[] = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
+        let actual: int[] = BubbleLib.Bubblesort.Bubblesort [| 1; 2; 3; 4; 5; 6; 7; 8 |]
+        CollectionAssert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing17() =
+        let expected: int[] = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
+        let actual: int[] = BubbleLib.Bubblesort.Bubblesort [| 8; 7; 6; 5; 4; 3; 2; 1|]
+        CollectionAssert.AreEqual(expected, actual)
+
+    [<TestMethod>]
+    member this.TestMethodPassing18() =
+        let expected: int[] = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
+        let actual: int[] = BubbleLib.Bubblesort.Bubblesort [| 3; 4; 1; 8; 5; 2; 7; 6 |]
+        CollectionAssert.AreEqual(expected, actual)
