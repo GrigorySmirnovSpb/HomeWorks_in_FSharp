@@ -143,3 +143,4 @@ type TestClass() =
         let expected = [||]
         let actual = Quicksorting.QuickSort [||] compare
         CollectionAssert.AreEqual(expected, actual)
+
