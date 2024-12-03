@@ -1,10 +1,85 @@
 namespace tests
 
-open System
-open Microsoft.VisualStudio.TestTools.UnitTesting
+open Xunit
+open FsCheck
+open FsCheck.Xunit
+open Lists
 
-[<TestClass>]
-type TestClass() =
+[<Properties(MaxTest = 10)>]  
+type MergeTest() =
 
-    [<TestMethod>]
-    member this.TestMethodPassing() = Assert.IsTrue(true)
+    [<Property>]
+    member _.intTest(testList : int list) =
+        let expected = List.sort testList
+        let mutable lst = MyList.fromList testList
+        let lst2 = lst.MergeSort compare
+        let actual = MyList.toList lst2
+        Assert.Equal<int>(expected, actual)
+
+    [<Property>]
+    member _.charTest(testList : char list) =
+        let expected = List.sort testList
+        let mutable lst = MyList.fromList testList
+        let lst2 = lst.MergeSort compare
+        let actual = MyList.toList lst2
+        Assert.Equal<char>(expected, actual)
+    
+    [<Property>]
+    member _.floatTest(testList : float list) =
+        let expected = List.sort testList
+        let mutable lst = MyList.fromList testList
+        let lst2 = lst.MergeSort compare
+        let actual = MyList.toList lst2
+        Assert.Equal<float>(expected, actual)
+
+type QuickTest() =
+
+    [<Property>]
+    member _.intTest(testList : int list) =
+        let expected = List.sort testList
+        let mutable lst = MyList.fromList testList
+        let lst2 = lst.QuickSort compare
+        let actual = MyList.toList lst2
+        Assert.Equal<int>(expected, actual)
+
+    [<Property>]
+    member _.charTest(testList : char list) =
+        let expected = List.sort testList
+        let mutable lst = MyList.fromList testList
+        let lst2 = lst.QuickSort compare
+        let actual = MyList.toList lst2
+        Assert.Equal<char>(expected, actual)
+    
+    [<Property>]
+    member _.floatTest(testList : float list) =
+        let expected = List.sort testList
+        let mutable lst = MyList.fromList testList
+        let lst2 = lst.QuickSort compare
+        let actual = MyList.toList lst2
+        Assert.Equal<float>(expected, actual)
+
+type BubbleTest() =
+
+    [<Property>]
+    member _.intTest(testList : int list) =
+        let expected = List.sort testList
+        let mutable lst = MyList.fromList testList
+        let lst2 = lst.Bubblesort compare
+        let actual = MyList.toList lst2
+        Assert.Equal<int>(expected, actual)
+
+    [<Property>]
+    member _.charTest(testList : char list) =
+        let expected = List.sort testList
+        let mutable lst = MyList.fromList testList
+        let lst2 = lst.Bubblesort compare
+        let actual = MyList.toList lst2
+        Assert.Equal<char>(expected, actual)
+    
+    [<Property>]
+    member _.floatTest(testList : float list) =
+        let expected = List.sort testList
+        let mutable lst = MyList.fromList testList
+        let lst2 = lst.Bubblesort compare
+        let actual = MyList.toList lst2
+        Assert.Equal<float>(expected, actual)
