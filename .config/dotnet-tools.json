@@ -3,7 +3,11 @@
   "isRoot": true,
   "tools": {
     "fantomas": {
+<<<<<<< HEAD
       "version": "6.3.16",
+=======
+      "version": "6.3.15",
+>>>>>>> d1efeed0bbf24074e73694ec5c7f667ff4842e7e
       "commands": [
         "fantomas"
       ]

@@ -21,7 +21,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 8.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Restore tools
@@ -32,3 +32,6 @@ jobs:
       run: dotnet fantomas .
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Fantomas
+      run: dotnet fantomas .
+
