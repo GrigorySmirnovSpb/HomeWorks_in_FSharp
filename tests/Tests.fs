@@ -5,7 +5,7 @@ open FsCheck
 open FsCheck.Xunit
 open Lists
 
-[<Properties(MaxTest = 10)>]  
+[<Properties(MaxTest = 100)>]  
 type MergeTest() =
 
     [<Property>]
@@ -35,7 +35,7 @@ type MergeTest() =
 type QuickTest() =
 
     [<Property>]
-    member _.intTest(testList : int list) =
+    member _.``intTest``(testList : int list) =
         let expected = List.sort testList
         let mutable lst = MyList.fromList testList
         let lst2 = lst.QuickSort compare
@@ -49,7 +49,7 @@ type QuickTest() =
         let lst2 = lst.QuickSort compare
         let actual = MyList.toList lst2
         Assert.Equal<char>(expected, actual)
-    
+
     [<Property>]
     member _.floatTest(testList : float list) =
         let expected = List.sort testList
