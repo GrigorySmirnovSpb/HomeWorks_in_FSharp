@@ -1,7 +1,5 @@
 ﻿namespace FibLib
 
-open FSharp.Collections
-
 module Fib =
     type Matrix = int array array
     let q: Matrix = [| [| 1; 1 |]; [| 1; 0 |] |]
@@ -51,9 +49,7 @@ namespace FactorialLib
 
 module Factorial =
     let rec Factorial x =
-        if x = 0u then 0u
-        elif x = 1u then 1u
-        else Factorial(x - 1u) * x
+        if x <= 1u then 1u else Factorial(x - 1u) * x
 
 namespace BubbleLib
 
