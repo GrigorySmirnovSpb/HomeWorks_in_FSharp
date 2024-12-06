@@ -1,4 +1,4 @@
-﻿namespace FibLib
+namespace FibLib
 
 open FSharp.Collections
 

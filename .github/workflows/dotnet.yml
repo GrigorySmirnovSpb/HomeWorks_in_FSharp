@@ -24,7 +24,11 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
+    - name: Restore tools
+      run: dotnet tool restore
     - name: Build
       run: dotnet build --no-restore
+    - name: Fantomas
+      run: dotnet fantomas .
     - name: Test
       run: dotnet test --no-build --verbosity normal
