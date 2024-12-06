@@ -1,4 +1,4 @@
-﻿namespace FibLib
+namespace FibLib
 
 module Fib =
     type Matrix = int array array
