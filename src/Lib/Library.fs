@@ -44,19 +44,19 @@ namespace BubbleLib
 module Bubblesorting =
 
     let Bubblesort (arr1: 'a array) compare =
-        let mutable f: int = 1
+        let mutable f: bool = true
         let mutable i: int = 0
 
-        while (f = 1) do
+        while f do
             let j: int = 0
-            f <- 0
+            f <- false
 
             for j in 0 .. Array.length arr1 - 2 - i do
                 if (compare arr1[j] arr1[j + 1] > 0) then
                     let temp = arr1.[j]
                     arr1.[j] <- arr1.[j + 1]
                     arr1.[j + 1] <- temp
-                    f <- 1
+                    f <- true
 
             i <- i + 1
 
