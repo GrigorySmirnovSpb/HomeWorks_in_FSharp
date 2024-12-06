@@ -29,7 +29,7 @@ type TestClass() =
         let expected = 4181
         let actual = FibLib.Fib.getnumber 19
         Assert.AreEqual(expected, actual)
-    
+
 
     [<TestMethod>]
     member this.TestFibonacci5() =
@@ -45,31 +45,25 @@ type TestClass() =
 
     [<TestMethod>]
     member this.TestFactorial1() =
-        let expected = 3628800
-        let actual = FactorialLib.Factorial.Factorial 10
+        let expected = 3628800u
+        let actual = FactorialLib.Factorial.Factorial 10u
         Assert.AreEqual(expected, actual)
 
     member this.TestFactorial2() =
-        let expected = 120
-        let actual = FactorialLib.Factorial.Factorial 5
+        let expected = 120u
+        let actual = FactorialLib.Factorial.Factorial 5u
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
     member this.TestFactorial3() =
-        let expected = 1
-        let actual = FactorialLib.Factorial.Factorial 1
+        let expected = 1u
+        let actual = FactorialLib.Factorial.Factorial 1u
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
     member this.TestFactorial4() =
-        let expected = 1
-        let actual = FactorialLib.Factorial.Factorial 0
-        Assert.AreEqual(expected, actual)
-
-    [<TestMethod>]
-    member this.TestFactorial5() =
-        let expected = 0
-        let actual = FactorialLib.Factorial.Factorial -15
+        let expected = 1u
+        let actual = FactorialLib.Factorial.Factorial 0u
         Assert.AreEqual(expected, actual)
 
     [<TestMethod>]
@@ -105,7 +99,7 @@ type TestClass() =
     [<TestMethod>]
     member this.TestBubbleSort6() =
         let expected: int[] = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
-        let actual: int[] = BubbleLib.Bubblesort.Bubblesort [| 8; 7; 6; 5; 4; 3; 2; 1|]
+        let actual: int[] = BubbleLib.Bubblesort.Bubblesort [| 8; 7; 6; 5; 4; 3; 2; 1 |]
         CollectionAssert.AreEqual(expected, actual)
 
     [<TestMethod>]
@@ -143,10 +137,9 @@ type TestClass() =
         let expected: int[] = [||]
         let actual: int[] = QuickSort.Quicksort.QuickSort [||]
         CollectionAssert.AreEqual(expected, actual)
-    
+
     [<TestMethod>]
     member this.TestQuickSort6() =
         let expected: int[] = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
         let actual: int[] = QuickSort.Quicksort.QuickSort [| 1; 2; 3; 4; 5; 6; 7; 8 |]
         CollectionAssert.AreEqual(expected, actual)
-
