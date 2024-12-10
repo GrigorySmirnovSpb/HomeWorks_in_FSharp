@@ -1,4 +1,4 @@
-namespace FibLib
+﻿namespace FibLib
 
 module Fib =
     type Matrix = int array array
@@ -20,14 +20,14 @@ module Fib =
         elif arr.[p].[0].[0] <> 0 then
             arr.[p]
         else
-            let m1 = powerMatrix arr mat (p / 2)
-            let mutable res = m1
+            let m1 = powerMatrix arr mat (p / 2) 
 
-            if p % 2 = 0 then
-                res <- multiplyMatrix m1 m1
-            else
-                let m2 = multiplyMatrix m1 q
-                res <- multiplyMatrix m1 m2
+            let res =
+                if p % 2 = 0 then
+                    multiplyMatrix m1 m1
+                else
+                    let m2 = multiplyMatrix m1 q
+                    multiplyMatrix m1 m2
 
             arr.[p] <- res
             res
@@ -56,19 +56,19 @@ namespace BubbleLib
 module Bubblesort =
 
     let Bubblesort arr1 =
-        let mutable f: bool = true
+        let mutable flagexit: bool = true
         let mutable i: int = 0
 
-        while f do
+        while flagexit do
             let j: int = 0
-            f <- false
+            flagexit <- false
 
             for j in 0 .. Array.length arr1 - 2 - i do
                 if (arr1[j] > arr1[j + 1]) then
                     let temp = arr1.[j]
                     arr1.[j] <- arr1.[j + 1]
                     arr1.[j + 1] <- temp
-                    f <- true
+                    flagexit <- true
 
             i <- i + 1
 
