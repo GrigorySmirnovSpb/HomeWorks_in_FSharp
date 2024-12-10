@@ -1,24 +1,25 @@
-﻿namespace LibMergeSort
+﻿namespace LibSorting
 
-module MergeSorting =
+module Sorts =
 
     let rec MergeSort (arr: 'a array) compare : 'a array =
         if Array.length arr <= 1 then
             arr
         else
-            let arr1 = MergeSort (Array.sub arr 0 ((Array.length arr) / 2)) compare
+            let length = (Array.length arr)
+            let remainder = (Array.length arr) % 2
+            let arr1 = MergeSort (Array.sub arr 0 (length / 2)) compare
 
-            let arr2 =
-                MergeSort
-                    (Array.sub arr (Array.length arr / 2) ((Array.length arr) / 2 + (Array.length arr) % 2))
-                    compare
+            let arr2 = MergeSort (Array.sub arr (length / 2) (length / 2 + remainder)) compare
 
             let mutable arr3: 'a array = arr
             let mutable j: int = 0
             let mutable i: int = 0
             let mutable k: int = 0
+            let len1 = Array.length arr1
+            let len2 = Array.length arr2
 
-            while (i < Array.length arr1) && (j < Array.length arr2) do
+            while (i < len1) && (j < len2) do
                 if compare arr1.[i] arr2.[j] < 0 then
                     arr3.[k] <- arr1.[i]
                     i <- i + 1
@@ -28,20 +29,16 @@ module MergeSorting =
                     j <- j + 1
                     k <- k + 1
 
-            if i >= Array.length arr1 then
-                for l in j .. (Array.length arr2 - 1) do
+            if i >= len1 then
+                for l in j .. (len2 - 1) do
                     arr3.[k] <- arr2.[l]
                     k <- k + 1
             else
-                for l in i .. (Array.length arr1 - 1) do
+                for l in i .. (len1 - 1) do
                     arr3.[k] <- arr1.[l]
                     k <- k + 1
 
             arr3
-
-namespace BubbleLib
-
-module Bubblesorting =
 
     let Bubblesort (arr1: 'a array) compare =
         let mutable f: bool = true
@@ -62,9 +59,6 @@ module Bubblesorting =
 
         arr1
 
-namespace QuickLib
-
-module Quicksorting =
     let QuickSort (arr1: 'a array) compare =
         let rec QuickHelper (arr: 'a array) (l: int) (r: int) =
             let pivot = arr.[(l + r) / 2]
