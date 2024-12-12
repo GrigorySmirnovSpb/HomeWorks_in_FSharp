@@ -20,7 +20,7 @@ module Fib =
         elif arr.[p].[0].[0] <> 0 then
             arr.[p]
         else
-            let m1 = powerMatrix arr mat (p / 2) 
+            let m1 = powerMatrix arr mat (p / 2)
 
             let res =
                 if p % 2 = 0 then
@@ -33,15 +33,12 @@ module Fib =
             res
 
     let getnumber (n: int) : int =
-        if n = 0 then
-            0
-        elif n = 1 then
-            1
-        elif n < 0 then
+        if n < 1 then
             0
         else
-            let ArrMatr = createMatrixArray (n) 2 2
+            let ArrMatr = createMatrixArray (n + 1) 2 2
             ArrMatr.[1] <- q
+            ArrMatr.[0] <- q
             let resmat = powerMatrix ArrMatr q (n - 1)
             resmat.[0].[0]
 
