@@ -2,115 +2,60 @@ namespace tests
 
 open Xunit
 open FsCheck
+open FSharpPlus
 open FsCheck.Xunit
-open Lists
-
-module UnitTests =
-
-    [<Fact>]
-    let MergeTest () =
-        let expected = List.sort []
-        let mutable lst = MyList.fromList []
-        let lst2 = lst.MergeSort compare
-        let actual = MyList.toList lst2
-        Assert.Equal<int>(expected, actual)
-
-
-    [<Fact>]
-    let BubbleTest () =
-        let expected = List.sort []
-        let mutable lst = MyList.fromList []
-        let lst2 = lst.Bubblesort compare
-        let actual = MyList.toList lst2
-        Assert.Equal<int>(expected, actual)
-
-
-    [<Fact>]
-    let QuickTest () =
-        let expected = List.sort []
-        let mutable lst = MyList.fromList []
-        let lst2 = lst.QuickSort compare
-        let actual = MyList.toList lst2
-        Assert.Equal<int>(expected, actual)
-
+open FSharpPlus.Data
+open TreeLib
 
 module PropertyTests =
 
-    [<Properties(MaxTest = 1000)>]
-    type MergeTest() =
+    [<Properties(MaxTest = 100)>] 
+    type idTests() =
+  
+        [<Property>]
+        member _.intTest (tree: MyTree<int>) =
+            tree = MyTree.map id tree
 
         [<Property>]
-        member _.intTest(testList: int list) =
-            let expected = List.sort testList
-            let mutable lst = MyList.fromList testList
-            let lst2 = lst.MergeSort compare
-            let actual = MyList.toList lst2
-            Assert.Equal<int>(expected, actual)
+        member _.charTest (tree: MyTree<char>) =
+            tree = MyTree.map id tree
+
+        (*[<Property>]
+        member _.floatTest (tree: MyTree<float>) =
+            tree = MyTree.map id tree*)
 
         [<Property>]
-        member _.charTest(testList: char list) =
-            let expected = List.sort testList
-            let mutable lst = MyList.fromList testList
-            let lst2 = lst.MergeSort compare
-            let actual = MyList.toList lst2
-            Assert.Equal<char>(expected, actual)
+        member _.arrTest (tree: MyTree<array<int>>) =
+            tree = MyTree.map id tree
+
+    type sumTests() =
+  
+        [<Property>]
+        member _.intTest (tree: MyTree<int>) =
+            let sum value acc = value + acc
+            let actsum = MyTree.fold sum tree 0
+            let expsum = List.sum (MyTree.treeToList tree)
+            actsum = expsum
 
         [<Property>]
-        member _.floatTest(testList: float list) =
-            let expected = List.sort testList
-            let mutable lst = MyList.fromList testList
-            let lst2 = lst.MergeSort compare
-            let actual = MyList.toList lst2
-            Assert.Equal<float>(expected, actual)
-
-    type QuickTest() =
+        member _.charTest (tree: MyTree<char>) =
+            let sum value acc = int value + int acc
+            let actsum = MyTree.fold sum tree 0
+            let expsum = int (List.sum (MyTree.treeToList tree))
+            actsum = expsum
 
         [<Property>]
-        member _.``intTest``(testList: int list) =
-            let expected = List.sort testList
-            let mutable lst = MyList.fromList testList
-            let lst2 = lst.QuickSort compare
-            let actual = MyList.toList lst2
-            Assert.Equal<int>(expected, actual)
+        member _.arrTest (tree: MyTree<array<int>>) =
+            let sum value acc = Array.sum value + acc
+            let actsum = MyTree.fold sum tree 0
+            let expsum = MyTree.treeToList tree |> List.collect Array.toList |> List.sum
+            actsum = expsum
 
-        [<Property>]
-        member _.charTest(testList: char list) =
-            let expected = List.sort testList
-            let mutable lst = MyList.fromList testList
-            let lst2 = lst.QuickSort compare
-            let actual = MyList.toList lst2
-            Assert.Equal<char>(expected, actual)
+        (*[<Property>]
+        member _.floatTest (tree: MyTree<float>) =
+            tree = MyTree.map id tree*)
 
-        [<Property>]
-        member _.floatTest(testList: float list) =
-            let expected = List.sort testList
-            let mutable lst = MyList.fromList testList
-            let lst2 = lst.QuickSort compare
-            let actual = MyList.toList lst2
-            Assert.Equal<float>(expected, actual)
+            
 
-    type BubbleTest() =
 
-        [<Property>]
-        member _.intTest(testList: int list) =
-            let expected = List.sort testList
-            let mutable lst = MyList.fromList testList
-            let lst2 = lst.Bubblesort compare
-            let actual = MyList.toList lst2
-            Assert.Equal<int>(expected, actual)
-
-        [<Property>]
-        member _.charTest(testList: char list) =
-            let expected = List.sort testList
-            let mutable lst = MyList.fromList testList
-            let lst2 = lst.Bubblesort compare
-            let actual = MyList.toList lst2
-            Assert.Equal<char>(expected, actual)
-
-        [<Property>]
-        member _.floatTest(testList: float list) =
-            let expected = List.sort testList
-            let mutable lst = MyList.fromList testList
-            let lst2 = lst.Bubblesort compare
-            let actual = MyList.toList lst2
-            Assert.Equal<float>(expected, actual)
+        

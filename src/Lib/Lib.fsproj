@@ -4,7 +4,10 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ListLibrary.fs" />
+    <Compile Include="TreeLibrary.fs" />
     <Compile Include="Library.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FSharpPlus" Version="1.7.0" />
   </ItemGroup>
 </Project>
