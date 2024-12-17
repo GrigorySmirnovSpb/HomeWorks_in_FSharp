@@ -20,7 +20,7 @@ module MyList =
             | Empty -> failwith "Index out of bounds :)"
             | Cons(hd, ls) -> if (a = 0) then hd else ls.Item(a - 1)
 
-        member this.Replace (ind: int) (el: 'elem) =
+        member this.Replace (ind: int) (el: 'elem) = //Функция, которая заменяет значение в списке на полученное, а также может добавлять элемент в конец списка (заменяет Empty на значение)
 
             let rec repHelper curind curlst =
                 match curlst with
@@ -76,10 +76,10 @@ module MyList =
 
                 arr
 
-            if this.Length > 0 then
-                sortHelper this 0 (this.Length - 1)
-            else
+            if this.Length = 0 then
                 Empty
+            else
+                sortHelper this 0 (this.Length - 1)
 
         member this.Bubblesort compare =
             let sortHelper (arr1: MyList<'elem>) =
