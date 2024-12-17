@@ -1,4 +1,4 @@
-namespace FibLib
+﻿namespace HW1
 
 module Fib =
     type Matrix = int array array
@@ -42,13 +42,9 @@ module Fib =
             let resmat = powerMatrix ArrMatr q (n - 1)
             resmat.[0].[0]
 
-namespace FactorialLib
-
 module Factorial =
     let rec Factorial x =
         if x <= 1u then 1u else Factorial(x - 1u) * x
-
-namespace BubbleLib
 
 module Bubblesort =
 
@@ -66,11 +62,10 @@ module Bubblesort =
                     arr1.[j] <- arr1.[j + 1]
                     arr1.[j + 1] <- temp
                     flagexit <- true
+
             i <- i + 1
 
         arr1
-
-namespace QuickSort
 
 module Quicksort =
     let QuickSort (arr1: int array) : int array =
@@ -80,7 +75,7 @@ module Quicksort =
             let mutable j: int = r
 
             while i <= j do
-            
+
                 while arr.[i] < pivot do
                     i <- i + 1
 
