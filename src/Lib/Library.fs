@@ -1,75 +1,85 @@
-﻿namespace LibSorting
+﻿namespace HW1
 
-module Sorts =
+module Fib =
+    type Matrix = int array array
+    let q: Matrix = [| [| 1; 1 |]; [| 1; 0 |] |]
 
-    let rec MergeSort (arr: 'a array) compare : 'a array =
-        if Array.length arr <= 1 then
-            arr
+    let createMatrixArray (size: int) (rows: int) (cols: int) : Matrix array =
+        Array.init size (fun _ -> Array.init rows (fun _ -> Array.init cols (fun _ -> 0)))
+
+    let multiplyMatrix (mat1: Matrix) (mat2: Matrix) : Matrix =
+        [| [| mat1.[0].[0] * mat2.[0].[0] + mat1.[0].[1] * mat2.[1].[0]
+              mat1.[0].[0] * mat2.[0].[1] + mat1.[0].[1] * mat2.[1].[1] |]
+           [| mat1.[1].[0] * mat2.[0].[0] + mat1.[1].[1] * mat2.[1].[0]
+              mat1.[1].[0] * mat2.[0].[1] + mat1.[1].[1] * mat2.[1].[1] |] |]
+
+
+    let rec powerMatrix (arr: array<Matrix>) (mat: Matrix) (p: int) : Matrix =
+        if p = 1 then
+            mat
+        elif arr.[p].[0].[0] <> 0 then
+            arr.[p]
         else
-            let length = (Array.length arr)
-            let remainder = (Array.length arr) % 2
-            let arr1 = MergeSort (Array.sub arr 0 (length / 2)) compare
+            let m1 = powerMatrix arr mat (p / 2)
 
-            let arr2 = MergeSort (Array.sub arr (length / 2) (length / 2 + remainder)) compare
-
-            let mutable arr3: 'a array = arr
-            let mutable j: int = 0
-            let mutable i: int = 0
-            let mutable k: int = 0
-            let len1 = Array.length arr1
-            let len2 = Array.length arr2
-
-            while (i < len1) && (j < len2) do
-                if compare arr1.[i] arr2.[j] < 0 then
-                    arr3.[k] <- arr1.[i]
-                    i <- i + 1
-                    k <- k + 1
+            let res =
+                if p % 2 = 0 then
+                    multiplyMatrix m1 m1
                 else
-                    arr3.[k] <- arr2.[j]
-                    j <- j + 1
-                    k <- k + 1
+                    let m2 = multiplyMatrix m1 q
+                    multiplyMatrix m1 m2
 
-            if i >= len1 then
-                for l in j .. (len2 - 1) do
-                    arr3.[k] <- arr2.[l]
-                    k <- k + 1
-            else
-                for l in i .. (len1 - 1) do
-                    arr3.[k] <- arr1.[l]
-                    k <- k + 1
+            arr.[p] <- res
+            res
 
-            arr3
+    let getnumber (n: int) : int =
+        if n < 1 then
+            0
+        else
+            let ArrMatr = createMatrixArray (n + 1) 2 2
+            ArrMatr.[1] <- q
+            ArrMatr.[0] <- q
+            let resmat = powerMatrix ArrMatr q (n - 1)
+            resmat.[0].[0]
 
-    let Bubblesort (arr1: 'a array) compare =
-        let mutable f: bool = true
+module Factorial =
+    let rec Factorial x =
+        if x <= 1u then 1u else Factorial(x - 1u) * x
+
+module Bubblesort =
+
+    let Bubblesort arr1 =
+        let mutable flagexit: bool = true
         let mutable i: int = 0
 
-        while f do
+        while flagexit do
             let j: int = 0
-            f <- false
+            flagexit <- false
 
             for j in 0 .. Array.length arr1 - 2 - i do
-                if (compare arr1[j] arr1[j + 1] > 0) then
+                if (arr1[j] > arr1[j + 1]) then
                     let temp = arr1.[j]
                     arr1.[j] <- arr1.[j + 1]
                     arr1.[j + 1] <- temp
-                    f <- true
+                    flagexit <- true
 
             i <- i + 1
 
         arr1
 
-    let QuickSort (arr1: 'a array) compare =
-        let rec QuickHelper (arr: 'a array) (l: int) (r: int) =
-            let pivot = arr.[(l + r) / 2]
+module Quicksort =
+    let QuickSort (arr1: int array) : int array =
+        let rec QuickHelper (arr: int array) (l: int) (r: int) =
+            let pivot: int = arr.[(l + r) / 2]
             let mutable i: int = l
             let mutable j: int = r
 
             while i <= j do
-                while compare arr.[i] pivot < 0 do
+
+                while arr.[i] < pivot do
                     i <- i + 1
 
-                while compare arr.[j] pivot > 0 do
+                while arr.[j] > pivot do
                     j <- j - 1
 
                 if i <= j then
