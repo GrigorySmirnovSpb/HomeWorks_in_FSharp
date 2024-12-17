@@ -1,6 +1,7 @@
 namespace tests
 
 open Microsoft.VisualStudio.TestTools.UnitTesting
+open LibSorting
 
 [<TestClass>]
 type TestClass() =

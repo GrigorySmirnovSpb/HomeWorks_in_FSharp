@@ -1,4 +1,4 @@
-﻿namespace FibLib
+namespace FibLib
 
 module Fib =
     type Matrix = int array array
@@ -66,7 +66,6 @@ module Bubblesort =
                     arr1.[j] <- arr1.[j + 1]
                     arr1.[j + 1] <- temp
                     flagexit <- true
-
             i <- i + 1
 
         arr1
@@ -81,6 +80,7 @@ module Quicksort =
             let mutable j: int = r
 
             while i <= j do
+            
                 while arr.[i] < pivot do
                     i <- i + 1
 
