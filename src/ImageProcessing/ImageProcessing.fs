@@ -104,7 +104,7 @@ let beautifulKernel =
     [| [| -1; -1; -1 |]; [| -1; 8; -1 |]; [| -1; -1; -1 |] |]
     |> Array.map (Array.map float32)
 
-let bwKernel = [| [| 1 |] |] |> Array.map (Array.map (fun x -> (float32 x) / 20.0f))
+let idKernel = [| [| 0; 0; 0 |]; [| 0; 1; 0 |]; [| 0; 0; 0 |] |] |> Array.map (Array.map float32)
 
 let applyFilter (filter: float32[][]) (img: Rgb[,]) =
     let imgH = img.GetLength 0

@@ -28,34 +28,41 @@ module PropertyTests =
 
 
     [<Properties(MaxTest = 100)>]
+
+    type idTests() =
+        [<Property>]
+        member _.idTest() = //Данный тест показывает что примение фильтра не меняет размер исходного изображения (в текущем примере матрицы, котрая играет роль изображения), также можно сказать, что и следующие тесты обладают таким свойством
+            let img = RandomPics
+            Assert.Equal(img, applyFilter idKernel img)
+
     type filterTests() =
 
         let prodMatZn (filter: float32[][]) x y matr =
-                let height = Array.length filter
-                let width = Array.length filter.[0]
-                let delta = height / 2
-                let mutable sumR = 0.0f
-                let mutable sumG = 0.0f
-                let mutable sumB = 0.0f
+            let height = Array.length filter
+            let width = Array.length filter.[0]
+            let delta = height / 2
+            let mutable sumR = 0.0f
+            let mutable sumG = 0.0f
+            let mutable sumB = 0.0f
 
-                for i in 0 .. height - 1 do
-                    for j in 0 .. width - 1 do
-                        let value = filter.[i].[j]
-                        let ix = x - delta + i
-                        let jy = y - delta + j
-                        if ix >= 0 && jy >= 0 &&  ix < (Array2D.length1 matr) && jy < (Array2D.length2 matr)
-                        then
-                            sumR <- sumR + (float32 matr[ix, jy].r * value)
-                            sumG <- sumG + (float32 matr[ix, jy].g * value)
-                            sumB <- sumB + (float32 matr[ix, jy].b * value)
-                        else 
-                            sumR <- sumR + (float32 matr[x, y].r * value)
-                            sumG <- sumG + (float32 matr[x, y].g * value)
-                            sumB <- sumB + (float32 matr[x, y].b * value)
+            for i in 0 .. height - 1 do
+                for j in 0 .. width - 1 do
+                    let value = filter.[i].[j]
+                    let ix = x - delta + i
+                    let jy = y - delta + j
 
-                { r = byte (min 255 (max 0 (int sumR)))
-                  g = byte (min 255 (max 0 (int sumG)))
-                  b = byte (min 255 (max 0 (int sumB))) }
+                    if ix >= 0 && jy >= 0 && ix < (Array2D.length1 matr) && jy < (Array2D.length2 matr) then
+                        sumR <- sumR + (float32 matr[ix, jy].r * value)
+                        sumG <- sumG + (float32 matr[ix, jy].g * value)
+                        sumB <- sumB + (float32 matr[ix, jy].b * value)
+                    else
+                        sumR <- sumR + (float32 matr[x, y].r * value)
+                        sumG <- sumG + (float32 matr[x, y].g * value)
+                        sumB <- sumB + (float32 matr[x, y].b * value)
+
+            { r = byte (min 255 (max 0 (int sumR)))
+              g = byte (min 255 (max 0 (int sumG)))
+              b = byte (min 255 (max 0 (int sumB))) }
 
         [<Property>]
         member _.EdgefilterTest() =
@@ -81,7 +88,10 @@ module PropertyTests =
         [<Property>]
         member _.SmallSharpfilterTest() =
             let matr = RandomPics
-            let expmatr = Array2D.mapi (fun x y _ -> prodMatZn smallsharpnessKernel x y matr) matr
+
+            let expmatr =
+                Array2D.mapi (fun x y _ -> prodMatZn smallsharpnessKernel x y matr) matr
+
             let actmatr = applyFilter smallsharpnessKernel matr
             Assert.Equal(actmatr, expmatr)
 
@@ -92,5 +102,3 @@ module PropertyTests =
             let actmatr = applyFilter bigsharpnessKernel matr
             Assert.Equal(actmatr, expmatr)
 
-
-        
