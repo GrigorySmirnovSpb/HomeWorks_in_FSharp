@@ -26,9 +26,9 @@ let loadAs2DArray (file: string) =
         Array2D.init img.Height img.Width (fun j i ->
             let pixel = img.[i, j]
 
-            { r = pixel.R;
-              g = pixel.G;
-              b = pixel.B; })
+            { r = pixel.R
+              g = pixel.G
+              b = pixel.B })
 
     printfn $"H=%A{img.Height} W=%A{img.Width}"
     printfn $"%A{img.Metadata}"
@@ -52,10 +52,9 @@ let save2DByteArrayAsImage (imageData: Rgb[,]) file =
                for y in [ 0 .. (Array2D.length2 array2D) - 1 ] do
                    yield array2D.[x, y] |]
 
-     // Преобразование Rgb в Rgb24
-    let flatRgb24Array = 
-        flat2Darray imageData 
-        |> Array.map (fun rgb -> Rgb24(rgb.r, rgb.g, rgb.b))
+    // Преобразование Rgb в Rgb24
+    let flatRgb24Array =
+        flat2Darray imageData |> Array.map (fun rgb -> Rgb24(rgb.r, rgb.g, rgb.b))
 
     // Создание изображения из одномерного массива
     let img = Image.LoadPixelData<Rgb24>(flatRgb24Array, w, h)
@@ -66,14 +65,12 @@ let save2DByteArrayAsImage (imageData: Rgb[,]) file =
     img.Save file*)
 
 let gaussianBlurKernel =
-        [|
-            [| 1;  4;  6;  4; 1 |]
-            [| 4; 16; 24; 16; 4 |]
-            [| 6; 24; 36; 24; 6 |]
-            [| 4; 16; 24; 16; 4 |]
-            [| 1;  4;  6;  4; 1 |]
-        |]
-        |> Array.map (Array.map (fun x -> (float32 x) / 256.0f))
+    [| [| 1; 4; 6; 4; 1 |]
+       [| 4; 16; 24; 16; 4 |]
+       [| 6; 24; 36; 24; 6 |]
+       [| 4; 16; 24; 16; 4 |]
+       [| 1; 4; 6; 4; 1 |] |]
+    |> Array.map (Array.map (fun x -> (float32 x) / 256.0f))
 
 let edgesKernel =
     [| [| 0; 0; -1; 0; 0 |]
@@ -92,39 +89,23 @@ let edgesKernel =
     |> Array.map (Array.map float32)*)
 
 let sobelKernel =
-    [| [| 1; 0; -1; |]
-       [| 2; 0; -2; |]
-       [| 1; 0; -1; |]
-    |]
+    [| [| 1; 0; -1 |]; [| 2; 0; -2 |]; [| 1; 0; -1 |] |]
     |> Array.map (Array.map float32)
 
 let smallsharpnessKernel =
-    [| [| 0; -1; 0; |]
-       [| -1; 5; -1; |]
-       [| 0; -1; 0; |]
-    |]
+    [| [| 0; -1; 0 |]; [| -1; 5; -1 |]; [| 0; -1; 0 |] |]
     |> Array.map (Array.map float32)
-    
+
 let bigsharpnessKernel =
-    [| [| -1; -1; -1; |]
-       [| -1; 9; -1; |]
-       [| -1; -1; -1; |]
-    |]
+    [| [| -1; -1; -1 |]; [| -1; 9; -1 |]; [| -1; -1; -1 |] |]
     |> Array.map (Array.map float32)
 
 let beautifulKernel =
-    [| [| -1; -1; -1; |]
-       [| -1; 8; -1; |]
-       [| -1; -1; -1; |]
-    |]
+    [| [| -1; -1; -1 |]; [| -1; 8; -1 |]; [| -1; -1; -1 |] |]
     |> Array.map (Array.map float32)
 
-let bwKernel =
-    [| 
-        [| 1 |]
-    |]
-    |> Array.map (Array.map (fun x -> (float32 x) / 20.0f))
-    
+let bwKernel = [| [| 1 |] |] |> Array.map (Array.map (fun x -> (float32 x) / 20.0f))
+
 let applyFilter (filter: float32[][]) (img: Rgb[,]) =
     let imgH = img.GetLength 0
     let imgW = img.GetLength 1
@@ -148,7 +129,15 @@ let applyFilter (filter: float32[][]) (img: Rgb[,]) =
                     sumR <- sumR + (float32 pixel.r * value)
                     sumG <- sumG + (float32 pixel.g * value)
                     sumB <- sumB + (float32 pixel.b * value)
+                else
+                    let pixel = img.[px, py]
+                    let value = filter.[x].[y]
+                    sumR <- sumR + (float32 pixel.r * value)
+                    sumG <- sumG + (float32 pixel.g * value)
+                    sumB <- sumB + (float32 pixel.b * value)
+
                 y <- y + 1
+
             x <- x + 1
             y <- 0
 
@@ -158,4 +147,3 @@ let applyFilter (filter: float32[][]) (img: Rgb[,]) =
           b = byte (min 255 (max 0 (int sumB))) }
 
     Array2D.mapi (fun x y _ -> (processPixel x y)) img
-    

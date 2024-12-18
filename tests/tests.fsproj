@@ -16,6 +16,7 @@
   <ItemGroup>
     <PackageReference Include="FsCheck" Version="3.0.0-rc3" />
     <PackageReference Include="FsCheck.Xunit" Version="3.0.0-rc3" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.6" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
     <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
@@ -27,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Lib\Lib.fsproj" />
+    <ProjectReference Include="..\src\ImageProcessing\ImageProcessing.fsproj" />
   </ItemGroup>
 
 </Project>
