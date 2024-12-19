@@ -1,140 +1,97 @@
 namespace tests
 
 open System
-open Microsoft.VisualStudio.TestTools.UnitTesting
-open LibSorting
+open Xunit
+open FsCheck
+open FsCheck.Xunit
+open ImageProcessing
+open SixLabors.ImageSharp
+open SixLabors.ImageSharp.PixelFormats
 
-[<TestClass>]
-type TestClass() =
+module PropertyTests =
 
-    [<TestMethod>]
-    member this.TestMergeSort1() =
-        let expected = [| 1; 2; 3; 4; 5; 6; 7 |]
-        let actual = Sorts.MergeSort [| 5; 1; 6; 4; 3; 7; 2 |] compare
-        CollectionAssert.AreEqual(expected, actual)
+    let RandomPics =
+        let rand = new Random()
+        let height = rand.Next(1, 500)
+        let width = rand.Next(1, 500)
 
-    [<TestMethod>]
-    member this.TestMergeSort2() =
-        let expected = [| "abcd"; "abcde"; "abcdef" |]
-        let actual = Sorts.MergeSort [| "abcde"; "abcd"; "abcdef" |] compare
-        CollectionAssert.AreEqual(expected, actual)
+        Array2D.init height width (fun j i ->
 
-    [<TestMethod>]
-    member this.TestMergeSort3() =
-        let expected = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
-        let actual = Sorts.MergeSort [| 3; 4; 1; 8; 5; 2; 7; 6 |] compare
-        CollectionAssert.AreEqual(expected, actual)
+            { r = byte (rand.Next(0, 256))
+              g = byte (rand.Next(0, 256))
+              b = byte (rand.Next(0, 256)) })
 
-    [<TestMethod>]
-    member this.TestMergeSort4() =
-        let expected = [| -12.7; -4.4; 0; 4.2; 7; 10 |]
+    [<Properties(MaxTest = 100)>]
 
-        let actual: float array = Sorts.MergeSort [| 0; 10; -4.4; 4.2; 7; -12.7 |] compare
+    type idTests() =
+        [<Property>]
+        member _.idTest() = //Данный тест показывает что примение фильтра не меняет размер исходного изображения (в текущем примере матрицы, котрая играет роль изображения), также можно сказать, что и следующие тесты обладают таким свойством
+            let img = RandomPics
+            Assert.Equal(img, applyFilter idKernel img)
 
-        CollectionAssert.AreEqual(expected, actual)
+    type filterTests() =
 
-    [<TestMethod>]
-    member this.TestMergeSort5() =
-        let expected = [| 1 |]
-        let actual = Sorts.MergeSort [| 1 |] compare
-        CollectionAssert.AreEqual(expected, actual)
+        let prodMatZn (filter: float32[][]) x y matr = //Функция умножающая фильтр на "пиксель"
+            let height = Array.length filter
+            let width = Array.length filter.[0]
+            let delta = height / 2
+            let mutable sumR = 0.0f
+            let mutable sumG = 0.0f
+            let mutable sumB = 0.0f
 
-    [<TestMethod>]
-    member this.TestMergeSort6() =
-        let expected = [| "a"; "b"; "d"; "f"; "g"; "y" |]
-        let actual = Sorts.MergeSort [| "g"; "a"; "f"; "d"; "b"; "y" |] compare
-        CollectionAssert.AreEqual(expected, actual)
+            for i in 0 .. height - 1 do
+                for j in 0 .. width - 1 do
+                    let value = filter.[i].[j]
+                    let ix = x - delta + i
+                    let jy = y - delta + j
 
-    [<TestMethod>]
-    member this.TestMergeSort7() =
-        let expected = [||]
-        let actual = Sorts.MergeSort [||] compare
-        CollectionAssert.AreEqual(expected, actual)
+                    if ix >= 0 && jy >= 0 && ix < (Array2D.length1 matr) && jy < (Array2D.length2 matr) then
+                        sumR <- sumR + (float32 matr[ix, jy].r * value)
+                        sumG <- sumG + (float32 matr[ix, jy].g * value)
+                        sumB <- sumB + (float32 matr[ix, jy].b * value)
+                    else
+                        sumR <- sumR + (float32 matr[x, y].r * value)
+                        sumG <- sumG + (float32 matr[x, y].g * value)
+                        sumB <- sumB + (float32 matr[x, y].b * value)
 
-    [<TestMethod>]
-    member this.TestBubbleSort1() =
-        let expected = [| 1; 2; 3; 4; 5; 6; 7 |]
-        let actual = Sorts.Bubblesort [| 5; 1; 6; 4; 3; 7; 2 |] compare
-        CollectionAssert.AreEqual(expected, actual)
+            { r = byte (min 255 (max 0 (int sumR)))
+              g = byte (min 255 (max 0 (int sumG)))
+              b = byte (min 255 (max 0 (int sumB))) }
 
-    [<TestMethod>]
-    member this.TestBubbleSort2() =
-        let expected = [| "abcd"; "abcde"; "abcdef" |]
-        let actual = Sorts.Bubblesort [| "abcde"; "abcd"; "abcdef" |] compare
-        CollectionAssert.AreEqual(expected, actual)
+        [<Property>]
+        member _.EdgefilterTest() =
+            let matr = RandomPics
+            let expmatr = Array2D.mapi (fun x y _ -> prodMatZn edgesKernel x y matr) matr
+            let actmatr = applyFilter edgesKernel matr
+            Assert.Equal(actmatr, expmatr)
 
-    [<TestMethod>]
-    member this.TestBubbleSort3() =
-        let expected = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
-        let actual = Sorts.Bubblesort [| 3; 4; 1; 8; 5; 2; 7; 6 |] compare
-        CollectionAssert.AreEqual(expected, actual)
+        [<Property>]
+        member _.GaussfilterTest() =
+            let matr = RandomPics
+            let expmatr = Array2D.mapi (fun x y _ -> prodMatZn gaussianBlurKernel x y matr) matr
+            let actmatr = applyFilter gaussianBlurKernel matr
+            Assert.Equal(actmatr, expmatr)
 
-    [<TestMethod>]
-    member this.TestBubbleSort4() =
-        let expected = [| -12.7; -4.4; 0; 4.2; 7; 10 |]
+        [<Property>]
+        member _.BeautyfilterTest() =
+            let matr = RandomPics
+            let expmatr = Array2D.mapi (fun x y _ -> prodMatZn beautifulKernel x y matr) matr
+            let actmatr = applyFilter beautifulKernel matr
+            Assert.Equal(actmatr, expmatr)
 
-        let actual: float array = Sorts.Bubblesort [| 0; 10; -4.4; 4.2; 7; -12.7 |] compare
+        [<Property>]
+        member _.SmallSharpfilterTest() =
+            let matr = RandomPics
 
-        CollectionAssert.AreEqual(expected, actual)
+            let expmatr =
+                Array2D.mapi (fun x y _ -> prodMatZn smallsharpnessKernel x y matr) matr
 
-    [<TestMethod>]
-    member this.TestBubbleSort5() =
-        let expected = [| 1 |]
-        let actual = Sorts.Bubblesort [| 1 |] compare
-        CollectionAssert.AreEqual(expected, actual)
+            let actmatr = applyFilter smallsharpnessKernel matr
+            Assert.Equal(actmatr, expmatr)
 
-    [<TestMethod>]
-    member this.TestBubbleSort6() =
-        let expected = [| "a"; "b"; "d"; "f"; "g"; "y" |]
-        let actual = Sorts.Bubblesort [| "g"; "a"; "f"; "d"; "b"; "y" |] compare
-        CollectionAssert.AreEqual(expected, actual)
-
-    [<TestMethod>]
-    member this.TestBubbleSort7() =
-        let expected = [||]
-        let actual = Sorts.Bubblesort [||] compare
-        CollectionAssert.AreEqual(expected, actual)
-
-    [<TestMethod>]
-    member this.TestQuickSort1() =
-        let expected = [| 1; 2; 3; 4; 5; 6; 7 |]
-        let actual = Sorts.QuickSort [| 5; 1; 6; 4; 3; 7; 2 |] compare
-        CollectionAssert.AreEqual(expected, actual)
-
-    [<TestMethod>]
-    member this.TestQuickSort2() =
-        let expected = [| "abcd"; "abcde"; "abcdef" |]
-        let actual = Sorts.QuickSort [| "abcde"; "abcd"; "abcdef" |] compare
-        CollectionAssert.AreEqual(expected, actual)
-
-    [<TestMethod>]
-    member this.TestQuickSort3() =
-        let expected = [| 1; 2; 3; 4; 5; 6; 7; 8 |]
-        let actual = Sorts.QuickSort [| 3; 4; 1; 8; 5; 2; 7; 6 |] compare
-        CollectionAssert.AreEqual(expected, actual)
-
-    [<TestMethod>]
-    member this.TestQuickSort4() =
-        let expected = [| -12.7; -4.4; 0; 4.2; 7; 10 |]
-
-        let actual: float array = Sorts.QuickSort [| 0; 10; -4.4; 4.2; 7; -12.7 |] compare
-
-        CollectionAssert.AreEqual(expected, actual)
-
-    [<TestMethod>]
-    member this.TestQuickSort5() =
-        let expected = [| 1 |]
-        let actual = Sorts.QuickSort [| 1 |] compare
-        CollectionAssert.AreEqual(expected, actual)
-
-    [<TestMethod>]
-    member this.TestQuickSort6() =
-        let expected = [| "a"; "b"; "d"; "f"; "g"; "y" |]
-        let actual = Sorts.QuickSort [| "g"; "a"; "f"; "d"; "b"; "y" |] compare
-        CollectionAssert.AreEqual(expected, actual)
-
-    [<TestMethod>]
-    member this.TestQuickSort7() =
-        let expected = [||]
-        let actual = Sorts.QuickSort [||] compare
-        CollectionAssert.AreEqual(expected, actual)
+        [<Property>]
+        member _.BigSharpfilterTest() =
+            let matr = RandomPics
+            let expmatr = Array2D.mapi (fun x y _ -> prodMatZn bigsharpnessKernel x y matr) matr
+            let actmatr = applyFilter bigsharpnessKernel matr
+            Assert.Equal(actmatr, expmatr)
