@@ -20,12 +20,6 @@ module PropertyTests =
             { r = byte (rand.Next(0, 256))
               g = byte (rand.Next(0, 256))
               b = byte (rand.Next(0, 256)) })
-    (*for i in 0 .. height - 1 do
-            for j in 0 .. width - 1 do
-                let pixR = byte (rand.Next(0, 256))
-                let pixG = byte (rand.Next(0, 256))
-                let pixB = byte (rand.Next(0, 256))*)
-
 
     [<Properties(MaxTest = 100)>]
 
@@ -37,7 +31,7 @@ module PropertyTests =
 
     type filterTests() =
 
-        let prodMatZn (filter: float32[][]) x y matr =
+        let prodMatZn (filter: float32[][]) x y matr = //Функция умножающая фильтр на "пиксель"
             let height = Array.length filter
             let width = Array.length filter.[0]
             let delta = height / 2
@@ -101,4 +95,3 @@ module PropertyTests =
             let expmatr = Array2D.mapi (fun x y _ -> prodMatZn bigsharpnessKernel x y matr) matr
             let actmatr = applyFilter bigsharpnessKernel matr
             Assert.Equal(actmatr, expmatr)
-

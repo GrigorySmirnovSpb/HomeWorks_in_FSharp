@@ -34,14 +34,6 @@ let loadAs2DArray (file: string) =
     printfn $"%A{img.Metadata}"
     res
 
-(*let loadAsImage (file: string) =
-    let img = Image.Load<Rgb24> file
-
-    let buf = Array.init (img.Width * img.Height) (fun _ -> { r = 0uy; g = 0uy; b = 0uy; })
-
-    img.CopyPixelDataTo(Span<Rgb24> buf)
-    Image(buf, img.Width, img.Height, System.IO.Path.GetFileName file)*)
-
 let save2DByteArrayAsImage (imageData: Rgb[,]) file =
     let h = imageData.GetLength 0
     let w = imageData.GetLength 1
@@ -60,10 +52,6 @@ let save2DByteArrayAsImage (imageData: Rgb[,]) file =
     let img = Image.LoadPixelData<Rgb24>(flatRgb24Array, w, h)
     img.Save(file)
 
-(*let saveImage (image: Image) file =
-    let img = Image.LoadPixelData<Rgb24>(image.Data, image.Width, image.Height)
-    img.Save file*)
-
 let gaussianBlurKernel =
     [| [| 1; 4; 6; 4; 1 |]
        [| 4; 16; 24; 16; 4 |]
@@ -80,39 +68,41 @@ let edgesKernel =
        [| 0; 0; 0; 0; 0 |] |]
     |> Array.map (Array.map float32)
 
-(*let sharpnessKernel =
-    [| [| 0; 0; 0; 0; 0 |]
-       [| 0; 0; -1; 0; 0 |]
-       [| 0; -1; 5; -1; 0 |]
-       [| 0; 0; -1; 0; 0 |]
-       [| 0; 0; 0; 0; 0 |] |]
-    |> Array.map (Array.map float32)*)
-
 let sobelKernel =
-    [| [| 1; 0; -1 |]; [| 2; 0; -2 |]; [| 1; 0; -1 |] |]
+    [| [| 1; 0; -1 |]; 
+       [| 2; 0; -2 |]; 
+       [| 1; 0; -1 |] |]
     |> Array.map (Array.map float32)
 
 let smallsharpnessKernel =
-    [| [| 0; -1; 0 |]; [| -1; 5; -1 |]; [| 0; -1; 0 |] |]
+    [| [| 0; -1; 0 |]; 
+       [| -1; 5; -1 |]; 
+       [| 0; -1; 0 |] |]
     |> Array.map (Array.map float32)
 
 let bigsharpnessKernel =
-    [| [| -1; -1; -1 |]; [| -1; 9; -1 |]; [| -1; -1; -1 |] |]
+    [| [| -1; -1; -1 |]; 
+       [| -1; 9; -1 |]; 
+       [| -1; -1; -1 |] |]
     |> Array.map (Array.map float32)
 
 let beautifulKernel =
-    [| [| -1; -1; -1 |]; [| -1; 8; -1 |]; [| -1; -1; -1 |] |]
+    [| [| -1; -1; -1 |]; 
+       [| -1; 8; -1 |]; 
+       [| -1; -1; -1 |] |]
     |> Array.map (Array.map float32)
 
-let idKernel = [| [| 0; 0; 0 |]; [| 0; 1; 0 |]; [| 0; 0; 0 |] |] |> Array.map (Array.map float32)
+let idKernel =
+    [| [| 0; 0; 0 |]; 
+       [| 0; 1; 0 |]; 
+       [| 0; 0; 0 |] |]
+    |> Array.map (Array.map float32)
 
 let applyFilter (filter: float32[][]) (img: Rgb[,]) =
     let imgH = img.GetLength 0
     let imgW = img.GetLength 1
 
     let filterD = (Array.length filter) / 2
-
-    //let filter = Array.concat filter
 
     let processPixel px py =
         let mutable sumR = 0.0f
