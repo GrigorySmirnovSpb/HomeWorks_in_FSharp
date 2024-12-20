@@ -3,7 +3,7 @@ namespace tests
 open Xunit
 open FsCheck
 open FsCheck.Xunit
-open Lists
+open ListLib
 
 module UnitTests =
 
@@ -11,7 +11,7 @@ module UnitTests =
     let MergeTest () =
         let expected = List.sort []
         let mutable lst = MyList.fromList []
-        let lst2 = lst.MergeSort compare
+        let lst2 = MyList.mergeSort lst compare
         let actual = MyList.toList lst2
         Assert.Equal<int>(expected, actual)
 
@@ -19,7 +19,7 @@ module UnitTests =
     let BubbleTest () =
         let expected = List.sort []
         let mutable lst = MyList.fromList []
-        let lst2 = lst.Bubblesort compare
+        let lst2 = MyList.bubbleSort lst compare
         let actual = MyList.toList lst2
         Assert.Equal<int>(expected, actual)
 
@@ -27,7 +27,7 @@ module UnitTests =
     let QuickTest () =
         let expected = List.sort []
         let mutable lst = MyList.fromList []
-        let lst2 = lst.QuickSort compare
+        let lst2 = MyList.quickSort lst compare
         let actual = MyList.toList lst2
         Assert.Equal<int>(expected, actual)
 
@@ -40,7 +40,7 @@ module PropertyTests =
         member _.intTest(testList: int list) =
             let expected = List.sort testList
             let mutable lst = MyList.fromList testList
-            let lst2 = lst.MergeSort compare
+            let lst2 = MyList.mergeSort lst compare
             let actual = MyList.toList lst2
             Assert.Equal<int>(expected, actual)
 
@@ -48,7 +48,7 @@ module PropertyTests =
         member _.charTest(testList: char list) =
             let expected = List.sort testList
             let mutable lst = MyList.fromList testList
-            let lst2 = lst.MergeSort compare
+            let lst2 = MyList.mergeSort lst compare
             let actual = MyList.toList lst2
             Assert.Equal<char>(expected, actual)
 
@@ -56,7 +56,7 @@ module PropertyTests =
         member _.floatTest(testList: float list) =
             let expected = List.sort testList
             let mutable lst = MyList.fromList testList
-            let lst2 = lst.MergeSort compare
+            let lst2 = MyList.mergeSort lst compare
             let actual = MyList.toList lst2
             Assert.Equal<float>(expected, actual)
 
@@ -66,7 +66,7 @@ module PropertyTests =
         member _.``intTest``(testList: int list) =
             let expected = List.sort testList
             let mutable lst = MyList.fromList testList
-            let lst2 = lst.QuickSort compare
+            let lst2 = MyList.quickSort lst compare
             let actual = MyList.toList lst2
             Assert.Equal<int>(expected, actual)
 
@@ -74,7 +74,7 @@ module PropertyTests =
         member _.charTest(testList: char list) =
             let expected = List.sort testList
             let mutable lst = MyList.fromList testList
-            let lst2 = lst.QuickSort compare
+            let lst2 = MyList.quickSort lst compare
             let actual = MyList.toList lst2
             Assert.Equal<char>(expected, actual)
 
@@ -82,7 +82,7 @@ module PropertyTests =
         member _.floatTest(testList: float list) =
             let expected = List.sort testList
             let mutable lst = MyList.fromList testList
-            let lst2 = lst.QuickSort compare
+            let lst2 = MyList.quickSort lst compare
             let actual = MyList.toList lst2
             Assert.Equal<float>(expected, actual)
 
@@ -92,7 +92,7 @@ module PropertyTests =
         member _.intTest(testList: int list) =
             let expected = List.sort testList
             let mutable lst = MyList.fromList testList
-            let lst2 = lst.Bubblesort compare
+            let lst2 = MyList.bubbleSort lst compare
             let actual = MyList.toList lst2
             Assert.Equal<int>(expected, actual)
 
@@ -100,7 +100,7 @@ module PropertyTests =
         member _.charTest(testList: char list) =
             let expected = List.sort testList
             let mutable lst = MyList.fromList testList
-            let lst2 = lst.Bubblesort compare
+            let lst2 = MyList.bubbleSort lst compare
             let actual = MyList.toList lst2
             Assert.Equal<char>(expected, actual)
 
@@ -108,6 +108,6 @@ module PropertyTests =
         member _.floatTest(testList: float list) =
             let expected = List.sort testList
             let mutable lst = MyList.fromList testList
-            let lst2 = lst.Bubblesort compare
+            let lst2 = MyList.bubbleSort lst compare
             let actual = MyList.toList lst2
             Assert.Equal<float>(expected, actual)

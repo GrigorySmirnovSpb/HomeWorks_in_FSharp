@@ -1,4 +1,4 @@
-﻿namespace Lists
+﻿namespace ListLib
 
 module MyList =
 
@@ -6,150 +6,77 @@ module MyList =
         | Empty
         | Cons of 'elem * MyList<'elem>
 
-        member this.Length =
-            let rec len (lst) : int =
-                match lst with
-                | Empty -> 0
-                | Cons(_, tl) -> 1 + len tl
-
-            len this
-
-        member this.Item(a: int) : 'elem =
-
-            match this with
-            | Empty -> failwith "Index out of bounds :)"
-            | Cons(hd, ls) -> if (a = 0) then hd else ls.Item(a - 1)
-
-        member this.Replace (ind: int) (el: 'elem) = //Функция, которая заменяет значение в списке на полученное, а также может добавлять элемент в конец списка (заменяет Empty на значение)
-
-            let rec repHelper curind curlst =
-                match curlst with
-                | Empty -> Cons(el, Empty)
-                | Cons(hd, tl) when (ind = curind) -> Cons(el, tl)
-                | Cons(hd, tl) -> Cons(hd, repHelper (curind + 1) tl)
-
-            repHelper 0 this
-
-        (*member this.Delete (ind: int) =
-
-            let rec delHelper curind curlst =
-                match curlst with                       
-                | Empty -> Empty
-                | Cons(hd, tl) when (ind = curind) -> tl
-                | Cons(hd, tl) -> Cons(hd, delHelper (curind + 1) tl)
-
-            delHelper 0 this
-*)
-        member this.QuickSort(compare) : MyList<'elem> =
-            let rec sortHelper (arr1: MyList<'elem>) (l: int) (r: int) =
-
-                //printf("%d\n") ((l + r) / 2)
-                let pivot: 'elem = arr1.Item((l + r) / 2)
-                let mutable i: int = l
-                let mutable j: int = r
-                let mutable arr = arr1
-
-                while i < j do
-
-                    while compare (arr.Item(i)) pivot < 0 do
-                        i <- i + 1
-
-                    while compare (arr.Item(j)) pivot > 0 do
-                        j <- j - 1
-
-                    if i <= j then
-                        let c: 'elem = arr.Item(i)
-                        let a: 'elem = arr.Item(j)
-                        //printf("%d\n") i
-                        arr <- arr.Replace i a
-                        //printf("%A\n") arr
-                        arr <- arr.Replace j c
-                        //printf("%A\n") arr
-                        i <- i + 1
-                        j <- j - 1
-
-                if l < j then
-                    arr <- sortHelper arr l j
-
-                if r > i then
-                    arr <- sortHelper arr i r
-
-                arr
-
-            if this.Length = 0 then
-                Empty
-            else
-                sortHelper this 0 (this.Length - 1)
-
-        member this.Bubblesort compare =
-            let sortHelper (arr1: MyList<'elem>) =
-
-                let mutable arr = arr1
-                let mutable flag: bool = true
-                let mutable i: int = 0
-
-                while (flag) do
-                    let j: int = 0
-                    flag <- false
-
-                    for j in 0 .. arr.Length - 2 - i do
-                        if compare (arr.Item(j)) (arr.Item(j + 1)) > 0 then
-                            let c: 'elem = arr.Item(j + 1)
-                            arr <- arr.Replace (j + 1) (arr.Item(j))
-                            arr <- arr.Replace j c
-                            flag <- true
-
-                    i <- i + 1
-
-                arr
-
-            if this.Length = 0 then Empty else sortHelper this
-
-        member this.MergeSort(compare) : MyList<'elem> =
-            let rec sortHelper (arr: MyList<'elem>) (l: int) (r: int) : MyList<'elem> =
-                let mutable arr1 = arr
-
-                if l = r then
-                    let c = arr1.Item(l)
-                    arr1 <- Empty
-                    arr1 <- arr1.Replace 0 c
-                    arr1
-                else
-                    let arr2 = sortHelper arr1 l ((r + l) / 2)
-                    let arr3 = sortHelper arr1 ((r + l) / 2 + 1) (r)
-                    let mutable arr4 = Empty
-                    let mutable j: int = 0
-                    let mutable i: int = 0
-
-                    while (i < arr2.Length) && (j < arr3.Length) do
-                        if compare (arr2.Item(i)) (arr3.Item(j)) < 0 then
-                            arr4 <- arr4.Replace arr4.Length (arr2.Item(i))
-                            i <- i + 1
-                        else
-                            arr4 <- arr4.Replace arr4.Length (arr3.Item(j))
-                            j <- j + 1
-
-                    if i >= arr2.Length then
-                        for k in 0 .. (arr3.Length - j - 1) do
-                            arr4 <- arr4.Replace arr4.Length (arr3.Item(j + k))
-                    else
-                        for k in 0 .. (arr2.Length - i - 1) do
-                            arr4 <- arr4.Replace arr4.Length (arr2.Item(i + k))
-
-                    arr4
-
-            if this.Length = 0 then
-                Empty
-            else
-                sortHelper this 0 (this.Length - 1)
+    let rec toList myList =
+        match myList with
+        | Empty -> []
+        | Cons (head, tail) -> head :: toList tail
 
     let rec fromList lst =
-        //printf("%A\n") lst
         match lst with
         | [] -> Empty
         | hd :: tl -> Cons(hd, fromList tl)
 
-    let rec toList lst =
-        match lst with
-        | Empty -> []
-        | Cons(hd, tl) -> hd :: toList tl
+    // Сравнение по умолчанию
+    let defaultCompare x y =
+        match x, y with
+        | _ when x < y -> -1
+        | _ when x > y -> 1
+        | _ -> 0
+
+    // Сортировка слиянием
+    let rec merge left right compare =
+        match left, right with
+        | Empty, _ -> right
+        | _, Empty -> left
+        | Cons (x1, tail1), Cons (x2, tail2) ->
+            if compare x1 x2 <= 0 then
+                Cons (x1, merge tail1 right compare)
+            else
+                Cons (x2, merge left tail2 compare)
+
+    let rec split list =
+        match list with
+        | Empty -> (Empty, Empty)
+        | Cons (x, Empty) -> (Cons (x, Empty), Empty)
+        | Cons (x1, Cons (x2, tail)) ->
+            let left, right = split tail
+            (Cons (x1, left), Cons (x2, right))
+
+    let rec mergeSort list compare =
+        match list with
+        | Empty -> Empty
+        | Cons (x, Empty) -> Cons (x, Empty)
+        | _ ->
+            let left, right = split list
+            merge (mergeSort left compare) (mergeSort right compare) compare
+
+    // Пузырьковая сортировка
+    let rec bubbleSort list compare =
+        let rec swap list notSorted =
+            match list with
+            | Empty -> (Empty, notSorted)
+            | Cons (x, Empty) -> (Cons (x, Empty), notSorted)
+            | Cons (x1, Cons (x2, tail)) ->
+                if compare x1 x2 > 0 then
+                    let newTail, _ = swap (Cons (x1, tail)) true
+                    (Cons (x2, newTail), true)
+                else
+                    let newTail, wasChanged = swap (Cons (x2, tail)) notSorted
+                    (Cons (x1, newTail), wasChanged)
+
+        let sortedList, wasChanged = swap list false
+        if wasChanged then bubbleSort sortedList compare else sortedList
+
+    // QuickSort
+    let rec append list1 list2 =
+        match list1 with
+        | Empty -> list2
+        | Cons (head, tail) -> Cons (head, append tail list2)
+
+    let rec quickSort list compare =
+        match list with
+        | Empty -> Empty
+        | Cons (pivot, tail) ->
+            let less = fromList (List.filter (fun x -> compare x pivot < 0) (toList tail))
+            let greater = fromList (List.filter (fun x -> compare x pivot >= 0) (toList tail))
+            append (quickSort less compare) (Cons(pivot, quickSort greater compare))
