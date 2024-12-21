@@ -1,1 +1,1 @@
-This is a my Homework on F#
+This repository was created for my homeworks for the first semester of my studies at the university
