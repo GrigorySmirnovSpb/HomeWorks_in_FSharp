@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B37FA1B8-D90
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "tests", "tests\tests.fsproj", "{3CEAF500-EBC6-4187-9B71-423FD8BD26AA}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "QuickSort", "src\Lib\QuickSort.fsproj", "{463CA648-F6F9-4674-A616-5097D625C5DF}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Lib", "src\Lib\Lib.fsproj", "{463CA648-F6F9-4674-A616-5097D625C5DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
