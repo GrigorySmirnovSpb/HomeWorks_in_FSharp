@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\LibHw2\LibHw2.fsproj" />
+    <ProjectReference Include="..\src\LibHw3\LibHw3.fsproj" />
   </ItemGroup>
 
 </Project>
