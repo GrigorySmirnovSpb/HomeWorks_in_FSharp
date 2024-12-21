@@ -16,13 +16,6 @@ module MyList =
         | [] -> Empty
         | hd :: tl -> Cons(hd, fromList tl)
 
-    // Сравнение по умолчанию
-    let defaultCompare x y =
-        match x, y with
-        | _ when x < y -> -1
-        | _ when x > y -> 1
-        | _ -> 0
-
     // Сортировка слиянием
     let rec merge left right compare =
         match left, right with
@@ -50,7 +43,7 @@ module MyList =
             let left, right = split list
             merge (mergeSort left compare) (mergeSort right compare) compare
 
-    // Пузырьковая сортировка
+    // Сортировка пузырьком
     let rec bubbleSort list compare =
         let rec swap list notSorted =
             match list with
