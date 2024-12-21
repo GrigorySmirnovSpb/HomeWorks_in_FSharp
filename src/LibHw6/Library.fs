@@ -15,12 +15,12 @@ module MyTree =
 
     let rec fold func acc tree =
         match tree with
-        | Leaf value -> func value acc
+        | Leaf value -> func acc value
         | Node children -> NonEmptyList.fold (fun acc child -> fold func acc child) acc children
 
     let rec foldBack func acc tree =
         match tree with
-        | Leaf value -> func value acc
+        | Leaf value -> func acc value
         | Node children -> NonEmptyList.foldBack (fun child acc -> foldBack func acc child) children acc
 
     let rec map func tree =
