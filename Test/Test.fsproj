@@ -9,13 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Tests.fs" />
+    <Compile Include="TestsHw6.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FsCheck" Version="3.0.0-rc3" />
     <PackageReference Include="FsCheck.Xunit" Version="3.0.0-rc3" />
+    <PackageReference Include="FSharpPlus" Version="1.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.0.4" />
     <PackageReference Include="MSTest.TestFramework" Version="3.0.4" />
@@ -29,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\LibHw2\LibHw2.fsproj" />
+    <ProjectReference Include="..\src\LibHw6\LibHw6.fsproj" />
   </ItemGroup>
 
 </Project>
