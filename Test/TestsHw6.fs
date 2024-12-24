@@ -83,8 +83,9 @@ module PropertyTests =
         member _.floatFoldTest(tree: MyTree<float32>) =
             let sum acc value = value + acc
             let actsum = MyTree.fold sum 0f tree
-            let expsum = MyTree.treeToList tree |> List.sum
-            Assert.True(areAlmostEqual actsum expsum 1e-10f)
+            let expsum = List.fold (fun x acc -> sum acc x) 0f (MyTree.treeToList tree) 
+            //Assert.True(areAlmostEqual actsum expsum 1e-10f)
+            Assert.Equal(actsum, expsum)
 
         [<Property>]
         member _.intFoldBackTest(tree: MyTree<int>) =
@@ -105,6 +106,13 @@ module PropertyTests =
             let sum acc value = Array.sum value + acc
             let actsum = MyTree.foldBack sum 0 tree
             let expsum = MyTree.treeToList tree |> List.collect Array.toList |> List.sum
+            Assert.Equal(actsum, expsum)
+
+        [<Property>]
+        member _.floatFoldBackTest(tree: MyTree<float32>) =
+            let sum acc value = value + acc
+            let actsum = MyTree.foldBack sum 0f tree
+            let expsum = List.foldBack (fun x acc -> sum acc x) (MyTree.treeToList tree) 0f
             Assert.Equal(actsum, expsum)
 
     type ProdTest() =
