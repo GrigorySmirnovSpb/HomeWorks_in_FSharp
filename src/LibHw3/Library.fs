@@ -66,10 +66,18 @@ module MyList =
         | Empty -> list2
         | Cons (head, tail) -> Cons (head, append tail list2)
 
+    let rec filter func list = 
+        match list with
+        | Empty -> Empty
+        | Cons (elem, tl) when func elem -> Cons (elem, filter func tl)
+        | Cons (elem, Empty) when func elem = false -> Empty
+        | Cons (elem1, Cons(elem2, tl)) when func elem1 = false -> filter func (Cons(elem2, tl))
+        | _ -> Empty
+
     let rec quickSort list compare =
         match list with
         | Empty -> Empty
         | Cons (pivot, tail) ->
-            let less = fromList (List.filter (fun x -> compare x pivot < 0) (toList tail))
-            let greater = fromList (List.filter (fun x -> compare x pivot >= 0) (toList tail))
+            let less = filter (fun x -> compare x pivot < 0) tail
+            let greater = filter (fun x -> compare x pivot >= 0) tail
             append (quickSort less compare) (Cons(pivot, quickSort greater compare))
