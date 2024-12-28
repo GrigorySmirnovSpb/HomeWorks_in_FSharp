@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Tests.fs" />
+    <Compile Include="TestsHw7.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\LibHw2\LibHw2.fsproj" />
+    <ProjectReference Include="..\src\LibHw7\LibHw7.fsproj" />
   </ItemGroup>
 
 </Project>
