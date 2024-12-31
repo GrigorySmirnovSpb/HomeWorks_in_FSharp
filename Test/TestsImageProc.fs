@@ -29,5 +29,4 @@ module PropertyTests =
         [<Property>]
         member _.sizeTest(img: Rgb array2d) = 
             let actmatr = applyFilter beautifulKernel img
-            Assert.Equal(Array2D.length1 img = Array2D.length1 actmatr
-                        , Array2D.length2 img = Array2D.length2 actmatr)
+            Assert.Equal(Array2D.length1 img = Array2D.length1 actmatr, Array2D.length2 img = Array2D.length2 actmatr)
