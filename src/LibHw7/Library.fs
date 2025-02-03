@@ -67,8 +67,8 @@ module Matrix =
 
     let rec map2 func qTree1 qTree2 =
         match qTree1, qTree2 with
-        | Leaf(value1, size1), Leaf(value2, size2) when size1 = size2 -> 
-            Leaf(func value1 value2, size1)
+        | Leaf(value1, size1), Leaf(value2, size2)-> 
+            Leaf(func value1 value2, min size1 size2)
         | Leaf(value1, size1), Node(t2_1, t2_2, t2_3, t2_4) -> 
             Node(map2 func qTree1 t2_1, 
                 map2 func qTree1 t2_2, 
@@ -84,7 +84,6 @@ module Matrix =
                 map2 func t1_2 t2_2, 
                 map2 func t1_3 t2_3, 
                 map2 func t1_4 t2_4)
-        | _ -> failwith "Trees must be of the same size"
 
     let rec add qtree1 qtree2 =
         match qtree1, qtree2 with
