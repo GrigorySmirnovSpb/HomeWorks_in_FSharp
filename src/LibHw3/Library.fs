@@ -70,8 +70,8 @@ module MyList =
         match list with
         | Empty -> Empty
         | Cons (elem, tl) when func elem -> Cons (elem, filter func tl)
-        | Cons (elem, Empty) when func elem = false -> Empty
-        | Cons (elem1, Cons(elem2, tl)) when func elem1 = false -> filter func (Cons(elem2, tl))
+        | Cons (elem, Empty) when not (func elem) -> Empty
+        | Cons (elem1, Cons(elem2, tl)) when not (func elem1) -> filter func (Cons(elem2, tl))
         | _ -> Empty
 
     let rec quickSort list compare =
