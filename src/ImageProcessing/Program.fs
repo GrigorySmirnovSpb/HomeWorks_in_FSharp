@@ -42,9 +42,6 @@ let main argv =
         let outFile = results.GetResult Out_File
         let filter = results.GetResult Filter
 
-        if not (System.IO.File.Exists(inFile)) then
-            failwith "Error: Input file does not exist."
-
         let inImage = loadAs2DArray inFile
 
         let resultImage =
@@ -56,14 +53,10 @@ let main argv =
             | Filter.Sobel -> applyFilter sobelKernel inImage
             | Filter.BigSharpness -> applyFilter bigsharpnessKernel inImage
             | Filter.Id -> applyFilter idKernel inImage
-            | Filter.Black -> applyFilter blackKernel inImage
+            | Filter.Black -> applyFilter blackKernel inImage   
+            | _ -> 
+                printfn "Unknown filter" 
+                inImage
 
         save2DByteArrayAsImage resultImage outFile
-
-    elif argv = [|"help"|] then 
-        let usage = parser.PrintUsage()
-        printfn "%s" usage
-    else 
-        printfn "Missing args\n Given: %A, but needed: --input-file <filename> --out-file <filename> --filter <number of filter>" argv
-
     0

@@ -86,6 +86,14 @@ let bigsharpnessKernel =
        [| -1; -1; -1 |] |]
     |> Array.map (Array.map float32)
 
+let extbigsharpnessKernel =
+    [| [| 0;  0;  0;  0; 0 |];
+       [| 0; -1; -1; -1; 0 |];
+       [| 0; -1;  9; -1; 0 |];
+       [| 0; -1; -1; -1; 0 |];
+       [| 0;  0;  0;  0; 0 |]  |]
+    |> Array.map (Array.map float32)
+
 let beautifulKernel =
     [| [| -1; -1; -1 |];
        [| -1; 8; -1 |];
@@ -102,6 +110,24 @@ let blackKernel =
     [| [| 0; 0; 0 |];
        [| 0; 0; 0 |];
        [| 0; 0; 0 |] |]
+    |> Array.map (Array.map float32)
+
+let shiftRight =
+    [| [| 0; 0; 0 |];
+       [| 0; 0; 1 |];
+       [| 0; 0; 0 |] |]
+    |> Array.map (Array.map float32)
+
+let shiftDown =
+    [| [| 0; 0; 0 |];
+       [| 0; 0; 0 |];
+       [| 0; 1; 0 |] |]
+    |> Array.map (Array.map float32)
+
+let shiftDiagonal =
+    [| [| 0; 0; 0 |];
+       [| 0; 0; 0 |];
+       [| 0; 0; 1 |] |]
     |> Array.map (Array.map float32)
 
 let applyFilter (filter: float32[][]) (img: Rgb[,]) =
@@ -125,13 +151,6 @@ let applyFilter (filter: float32[][]) (img: Rgb[,]) =
                     sumR <- sumR + (float32 pixel.r * value)
                     sumG <- sumG + (float32 pixel.g * value)
                     sumB <- sumB + (float32 pixel.b * value)
-                else
-                    let pixel = img.[px, py]
-                    let value = filter.[x].[y]
-                    sumR <- sumR + (float32 pixel.r * value)
-                    sumG <- sumG + (float32 pixel.g * value)
-                    sumB <- sumB + (float32 pixel.b * value)
-
                 y <- y + 1
 
             x <- x + 1
