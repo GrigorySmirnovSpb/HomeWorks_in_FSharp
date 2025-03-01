@@ -19,6 +19,17 @@ module PropertyTest =
             mat.[row, col]
         )
 
+    let multMatr mat1 mat2 = 
+        if Array2D.length1 mat1 <> Array2D.length2 mat2
+        then failwith "Matrices have different sizes"
+        else 
+            let multedMat = Array2D.zeroCreate (Array2D.length1 mat1) (Array2D.length2 mat2)
+            for i in 0 .. Array2D.length1 mat1 - 1 do
+                for j in 0 .. Array2D.length2 mat1 - 1 do
+                    for k in 0 .. Array2D.length2 mat2 - 1 do
+                    multedMat[i,j] <- multedMat[i,j] + mat1[i,k] * mat2[k,j]
+            multedMat
+
     let areAlmostEqual (a: float32) (b: float32) (epsilon: float32) =
         if Single.IsFinite(a) && Single.IsFinite(b) then
             abs (a - b) < epsilon
@@ -36,18 +47,6 @@ module PropertyTest =
                 return elements
             }
         genMatrix
-    
-    type multiTest() =
-    
-
-        [<Fact>]
-        let intTest() =
-            let matr1 = Node(Leaf(3, 2), Leaf(2, 2), Leaf(7, 2), Leaf(4, 2))
-            let matr2 = Node(Leaf(5, 2), Leaf(4, 2), Leaf(3, 2), Leaf(9, 2))
-            let multimatr = multiplyMatrix matr1 matr2
-            let expmatr = Node(Leaf(21, 2), Leaf(30, 2), Leaf(47, 2), Leaf(64, 2))
-            Assert.Equal(expmatr, multimatr)
-
 
    [<Properties(MaxTest = 100)>]
     type idTests() =
@@ -83,7 +82,7 @@ module PropertyTest =
             let sqmatr = createSquareMatrix matr
             let qmatr = createQuadMatrix sqmatr 0 0 (Array2D.length1 sqmatr)
             let mapedMatr = map ((+) 1) qmatr
-            let qmatr2d = toArray2d mapedMatr
+            let qmatr2d = toArray2d mapedMatr (Array2D.length1 sqmatr)
             let actmatr = Array2D.create heigth wide 0
             for i in 0 .. heigth - 1 do
                 for j in 0 .. wide - 1 do
@@ -98,7 +97,7 @@ module PropertyTest =
             let sqmatr = createSquareMatrix matr
             let qmatr = createQuadMatrix sqmatr 0 0 (Array2D.length1 sqmatr)
             let mapedMatr = map ((+) '1') qmatr
-            let qmatr2d = toArray2d mapedMatr
+            let qmatr2d = toArray2d mapedMatr (Array2D.length1 sqmatr)
             let actmatr = Array2D.create heigth wide '1'
             for i in 0 .. heigth - 1 do
                 for j in 0 .. wide - 1 do
@@ -119,7 +118,7 @@ module PropertyTest =
             let sqmatr2 = createSquareMatrix matr2.[0]
             let qmatr2 = createQuadMatrix sqmatr2 0 0 (Array2D.length1 sqmatr2)
             let actqmatr = map2 (+) qmatr1 qmatr2
-            let qmatr2d = toArray2d actqmatr
+            let qmatr2d = toArray2d actqmatr  (Array2D.length1 sqmatr1)
             let actmatr2d = Array2D.create (int size) (int size) 0
             for i in 0 .. (int size) - 1 do
                 for j in 0 .. (int size) - 1 do
@@ -140,7 +139,7 @@ module PropertyTest =
             let sqmatr2 = createSquareMatrix matr2.[0]
             let qmatr2 = createQuadMatrix sqmatr2 0 0 (Array2D.length1 sqmatr2)
             let actqmatr = map2 (+) qmatr1 qmatr2
-            let qmatr2d = toArray2d actqmatr
+            let qmatr2d = toArray2d actqmatr (Array2D.length1 sqmatr1)
             let actmatr2d = Array2D.create (int size) (int size) ' '
             for i in 0 .. (int size) - 1 do
                 for j in 0 .. (int size) - 1 do
@@ -148,3 +147,21 @@ module PropertyTest =
             let actmatr = PropertyTest.toArray actmatr2d
             let fequal = Array.forall2 (=) actmatr expmatr
             Assert.True(fequal)
+    type multTest() =
+
+        [<Property>]    
+        member _.intTest (size: uint) =
+            let matr1 = Gen.sample 1 (PropertyTest.matrixGenerator (int size) (int size) (Gen.choose (-100000, 100000)))
+            let matr2 = Gen.sample 1 (PropertyTest.matrixGenerator (int size) (int size) (Gen.choose (-100000, 100000)))
+            let expmatr= PropertyTest.multMatr matr1.[0] matr2.[0]
+            let sqmatr1 = createSquareMatrix matr1.[0]
+            let qmatr1 = createQuadMatrix sqmatr1 0 0 (Array2D.length1 sqmatr1)
+            let sqmatr2 = createSquareMatrix matr2.[0]
+            let qmatr2 = createQuadMatrix sqmatr2 0 0 (Array2D.length1 sqmatr2)
+            let actqmatr = multiplyMatrix qmatr1 (Array2D.length1 sqmatr1) qmatr2 (Array2D.length1 sqmatr2)
+            let qmatr2d = toArray2d actqmatr  (Array2D.length1 sqmatr1)
+            let actmatr = Array2D.create (int size) (int size) 0
+            for i in 0 .. (int size) - 1 do
+                for j in 0 .. (int size) - 1 do
+                    actmatr[i, j] <- qmatr2d[i, j]
+            Assert.Equal(expmatr, actmatr)
