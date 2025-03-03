@@ -14,14 +14,14 @@ module Matrix =
             else
                 max (Math.Log2(Array2D.length1 inmatr)) (Math.Log2(Array2D.length2 inmatr))
 
-        let isSizeFalse = not (logSize = float (int logSize))
+        let isSizeCorrect = logSize = float (int logSize)
 
         if
-            isSizeFalse
+            not isSizeCorrect
             || Array2D.length1 inmatr <> Array2D.length2 inmatr
             || Array2D.length1 inmatr = 0
         then
-            let normalSize = pown 2 (int (logSize) + 1)
+            let normalSize = pown 2 (int logSize + 1)
 
             let resMatr: 'T array2d =
                 Array2D.create normalSize normalSize Unchecked.defaultof<'T>
@@ -78,81 +78,81 @@ module Matrix =
         | Node(t1_1, t1_2, t1_3, t1_4), Node(t2_1, t2_2, t2_3, t2_4) ->
             Node(map2 func t1_1 t2_1, map2 func t1_2 t2_2, map2 func t1_3 t2_3, map2 func t1_4 t2_4)
 
-    let rec add qtree1 size1 qtree2 size2 =
+    let rec add addFunc qtree1 size1 qtree2 size2 =
         match qtree1, qtree2 with
-        | Leaf(value1), Leaf(value2) -> Leaf(value1 + value2)
+        | Leaf(value1), Leaf(value2) -> Leaf(addFunc value1 value2)
         | Leaf(value1), Node(t2_1, t2_2, t2_3, t2_4) ->
             Node(
-                add qtree1 (size1 / 2) t2_1 (size2 / 2),
-                add qtree1 (size1 / 2) t2_2 (size2 / 2),
-                add qtree1 (size1 / 2) t2_3 (size2 / 2),
-                add qtree1 (size1 / 2) t2_4 (size2 / 2)
+                add addFunc qtree1 (size1 / 2) t2_1 (size2 / 2),
+                add addFunc qtree1 (size1 / 2) t2_2 (size2 / 2),
+                add addFunc qtree1 (size1 / 2) t2_3 (size2 / 2),
+                add addFunc qtree1 (size1 / 2) t2_4 (size2 / 2)
             )
         | Node(t1_1, t1_2, t1_3, t1_4), Leaf(value2) ->
             Node(
-                add t1_1 (size1 / 2) qtree2 (size2 / 2),
-                add t1_2 (size1 / 2) qtree2 (size2 / 2),
-                add t1_3 (size1 / 2) qtree2 (size2 / 2),
-                add t1_4 (size1 / 2) qtree2 (size2 / 2)
+                add addFunc t1_1 (size1 / 2) qtree2 (size2 / 2),
+                add addFunc t1_2 (size1 / 2) qtree2 (size2 / 2),
+                add addFunc t1_3 (size1 / 2) qtree2 (size2 / 2),
+                add addFunc t1_4 (size1 / 2) qtree2 (size2 / 2)
             )
         | Node(t1_1, t1_2, t1_3, t1_4), Node(t2_1, t2_2, t2_3, t2_4) ->
             Node(
-                add t1_1 (size1 / 2) t2_1 (size2 / 2),
-                add t1_2 (size1 / 2) t2_2 (size2 / 2),
-                add t1_3 (size1 / 2) t2_3 (size2 / 2),
-                add t1_4 (size1 / 2) t2_4 (size2 / 2)
+                add addFunc t1_1 (size1 / 2) t2_1 (size2 / 2),
+                add addFunc t1_2 (size1 / 2) t2_2 (size2 / 2),
+                add addFunc t1_3 (size1 / 2) t2_3 (size2 / 2),
+                add addFunc t1_4 (size1 / 2) t2_4 (size2 / 2)
             )
 
-    let rec multiplyMatrix qtree1 size1 qtree2 size2 =
+    let rec multiplyMatrix mulFunc addFunc qtree1 size1 qtree2 size2 =
         match qtree1, qtree2 with
-        | Leaf(value1), Leaf(value2) -> Leaf(value1 * value2 * size1)
+        | Leaf(value1), Leaf(value2) -> Leaf(mulFunc value1 value2)
         | Leaf(value1), Node(t2_1, t2_2, t2_3, t2_4) ->
-            let a = multiplyMatrix qtree1 (size1 / 2) t2_1 (size2 / 2)
-            let b = multiplyMatrix qtree1 (size1 / 2) t2_3 (size2 / 2)
-            let c = multiplyMatrix qtree1 (size1 / 2) t2_2 (size2 / 2)
-            let d = multiplyMatrix qtree1 (size1 / 2) t2_4 (size2 / 2)
-            let e = multiplyMatrix qtree1 (size1 / 2) t2_1 (size2 / 2)
-            let f = multiplyMatrix qtree1 (size1 / 2) t2_3 (size2 / 2)
-            let g = multiplyMatrix qtree1 (size1 / 2) t2_2 (size2 / 2)
-            let h = multiplyMatrix qtree1 (size1 / 2) t2_4 (size2 / 2)
+            let a = multiplyMatrix mulFunc addFunc qtree1 (size1 / 2) t2_1 (size2 / 2)
+            let b = multiplyMatrix mulFunc addFunc qtree1 (size1 / 2) t2_3 (size2 / 2)
+            let c = multiplyMatrix mulFunc addFunc qtree1 (size1 / 2) t2_2 (size2 / 2)
+            let d = multiplyMatrix mulFunc addFunc qtree1 (size1 / 2) t2_4 (size2 / 2)
+            let e = multiplyMatrix mulFunc addFunc qtree1 (size1 / 2) t2_1 (size2 / 2)
+            let f = multiplyMatrix mulFunc addFunc qtree1 (size1 / 2) t2_3 (size2 / 2)
+            let g = multiplyMatrix mulFunc addFunc qtree1 (size1 / 2) t2_2 (size2 / 2)
+            let h = multiplyMatrix mulFunc addFunc qtree1 (size1 / 2) t2_4 (size2 / 2)
 
             Node(
-                add a (size1 / 2) b (size2 / 2),
-                add c (size1 / 2) d (size2 / 2),
-                add e (size1 / 2) f (size2 / 2),
-                add g (size1 / 2) h (size2 / 2)
+                add addFunc a (size1 / 2) b (size2 / 2),
+                add addFunc c (size1 / 2) d (size2 / 2),
+                add addFunc e (size1 / 2) f (size2 / 2),
+                add addFunc g (size1 / 2) h (size2 / 2)
             )
         | Node(t1_1, t1_2, t1_3, t1_4), Leaf(value2) ->
-            let a = multiplyMatrix t1_1 (size1 / 2) qtree2 (size2 / 2)
-            let b = multiplyMatrix t1_2 (size1 / 2) qtree2 (size2 / 2)
-            let c = multiplyMatrix t1_1 (size1 / 2) qtree2 (size2 / 2)
-            let d = multiplyMatrix t1_2 (size1 / 2) qtree2 (size2 / 2)
-            let e = multiplyMatrix t1_3 (size1 / 2) qtree2 (size2 / 2)
-            let f = multiplyMatrix t1_4 (size1 / 2) qtree2 (size2 / 2)
-            let g = multiplyMatrix t1_3 (size1 / 2) qtree2 (size2 / 2)
-            let h = multiplyMatrix t1_4 (size1 / 2) qtree2 (size2 / 2)
+            let a = multiplyMatrix mulFunc addFunc t1_1 (size1 / 2) qtree2 (size2 / 2)
+            let b = multiplyMatrix mulFunc addFunc t1_2 (size1 / 2) qtree2 (size2 / 2)
+            let c = multiplyMatrix mulFunc addFunc t1_1 (size1 / 2) qtree2 (size2 / 2)
+            let d = multiplyMatrix mulFunc addFunc t1_2 (size1 / 2) qtree2 (size2 / 2)
+            let e = multiplyMatrix mulFunc addFunc t1_3 (size1 / 2) qtree2 (size2 / 2)
+            let f = multiplyMatrix mulFunc addFunc t1_4 (size1 / 2) qtree2 (size2 / 2)
+            let g = multiplyMatrix mulFunc addFunc t1_3 (size1 / 2) qtree2 (size2 / 2)
+            let h = multiplyMatrix mulFunc addFunc t1_4 (size1 / 2) qtree2 (size2 / 2)
 
             Node(
-                add a (size1 / 2) b (size2 / 2),
-                add c (size1 / 2) d (size2 / 2),
-                add e (size1 / 2) f (size2 / 2),
-                add g (size1 / 2) h (size2 / 2)
+                add addFunc a (size1 / 2) b (size2 / 2),
+                add addFunc c (size1 / 2) d (size2 / 2),
+                add addFunc e (size1 / 2) f (size2 / 2),
+                add addFunc g (size1 / 2) h (size2 / 2)
             )
         | Node(t1_1, t1_2, t1_3, t1_4), Node(t2_1, t2_2, t2_3, t2_4) ->
-            let a = multiplyMatrix t1_1 (size1 / 2) t2_1 (size2 / 2)
-            let b = multiplyMatrix t1_2 (size1 / 2) t2_3 (size2 / 2)
-            let c = multiplyMatrix t1_1 (size1 / 2) t2_2 (size2 / 2)
-            let d = multiplyMatrix t1_2 (size1 / 2) t2_4 (size2 / 2)
-            let e = multiplyMatrix t1_3 (size1 / 2) t2_1 (size2 / 2)
-            let f = multiplyMatrix t1_4 (size1 / 2) t2_3 (size2 / 2)
-            let g = multiplyMatrix t1_3 (size1 / 2) t2_2 (size2 / 2)
-            let h = multiplyMatrix t1_4 (size1 / 2) t2_4 (size2 / 2)
+            let a = multiplyMatrix mulFunc addFunc t1_1 (size1 / 2) t2_1 (size2 / 2)
+            let b = multiplyMatrix mulFunc addFunc t1_2 (size1 / 2) t2_3 (size2 / 2)
+            let c = multiplyMatrix mulFunc addFunc t1_1 (size1 / 2) t2_2 (size2 / 2)
+            let d = multiplyMatrix mulFunc addFunc t1_2 (size1 / 2) t2_4 (size2 / 2)
+            let e = multiplyMatrix mulFunc addFunc t1_3 (size1 / 2) t2_1 (size2 / 2)
+            let f = multiplyMatrix mulFunc addFunc t1_4 (size1 / 2) t2_3 (size2 / 2)
+            let g = multiplyMatrix mulFunc addFunc t1_3 (size1 / 2) t2_2 (size2 / 2)
+            let h = multiplyMatrix mulFunc addFunc t1_4 (size1 / 2) t2_4 (size2 / 2)
 
             Node(
-                add a (size1 / 2) b (size2 / 2),
-                add c (size1 / 2) d (size2 / 2),
-                add e (size1 / 2) f (size2 / 2),
-                add g (size1 / 2) h (size2 / 2)
+                add addFunc a (size1 / 2) b (size2 / 2),
+                add addFunc c (size1 / 2) d (size2 / 2),
+                add addFunc e (size1 / 2) f (size2 / 2),
+                add addFunc g (size1 / 2) h (size2 / 2)
             )
 
     let rec toArray2d (qtree: QuadMatrix<'T>) sizem =
@@ -167,7 +167,7 @@ module Matrix =
             let botright = toArray2d t4 (sizem / 2)
             let size = Array2D.length1 topleft
 
-            let resmatr = Array2D.create (size * 2) (size * 2) Unchecked.defaultof<'T>
+            let resmatr = Array2D.create sizem sizem Unchecked.defaultof<'T>
 
             for i in 0 .. size - 1 do
                 for j in 0 .. size - 1 do
