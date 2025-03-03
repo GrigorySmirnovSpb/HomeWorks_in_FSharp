@@ -11,6 +11,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Test", "Test\Test.fsproj", 
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ImageProcessing", "src\ImageProcessing\ImageProcessing.fsproj", "{3C564DE7-3B68-4DAE-AD09-F1987066BA36}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "LibHw3", "src\LibHw3\LibHw3.fsproj", "{E63C1F63-167B-47D5-A94C-6C00CDAC9104}"
+EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "LibHw1", "src\LibHw1\LibHw1.fsproj", "{EEDB2603-0992-464E-B575-A9A5E31DFA3B}"
 EndProject
 Global
