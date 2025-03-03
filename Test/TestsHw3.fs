@@ -31,7 +31,7 @@ module UnitTests =
         let actual = MyList.toList lst2
         Assert.Equal<int>(expected, actual)
 
-module PropertyTests =
+module PropertySpisTests =
 
     [<Properties(MaxTest = 100)>]
     type MergeTest() =
