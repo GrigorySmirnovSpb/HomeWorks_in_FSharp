@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Compile Include="TestsHw6.fs" />
+    <Compile Include="TestsImageProc.fs" />
     <Compile Include="TestsHw3.fs" />
     <Compile Include="TestHw1.fs" />
     <Compile Include="Program.fs" />
@@ -23,6 +24,7 @@
     <PackageReference Include="MSTest.TestAdapter" Version="3.0.4" />
     <PackageReference Include="MSTest.TestFramework" Version="3.0.4" />
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.6" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -33,6 +35,7 @@
   <ItemGroup>
     <ProjectReference Include="..\src\LibHw6\LibHw6.fsproj" />
     <ProjectReference Include="..\src\LibHw2\LibHw2.fsproj" />
+    <ProjectReference Include="..\src\ImageProcessing\ImageProcessing.fsproj" />
     <ProjectReference Include="..\src\LibHw3\LibHw3.fsproj" />
     <ProjectReference Include="..\src\LibHw1\LibHw1.fsproj" />
   </ItemGroup>
