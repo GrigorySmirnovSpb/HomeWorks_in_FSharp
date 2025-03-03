@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Compile Include="TestsHw6.fs" />
+    <Compile Include="TestsHw3.fs" />
     <Compile Include="TestHw1.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
@@ -32,6 +33,7 @@
   <ItemGroup>
     <ProjectReference Include="..\src\LibHw6\LibHw6.fsproj" />
     <ProjectReference Include="..\src\LibHw2\LibHw2.fsproj" />
+    <ProjectReference Include="..\src\LibHw3\LibHw3.fsproj" />
     <ProjectReference Include="..\src\LibHw1\LibHw1.fsproj" />
   </ItemGroup>
 
