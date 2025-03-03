@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="TestsHw6.fs" />
     <Compile Include="TestsImageProc.fs" />
     <Compile Include="TestsHw3.fs" />
     <Compile Include="TestHw1.fs" />
@@ -16,8 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FsCheck" Version="2.16.6" />
-    <PackageReference Include="FsCheck.Xunit" Version="2.16.6" />
+    <PackageReference Include="FsCheck" Version="3.0.0-rc3" />
+    <PackageReference Include="FsCheck.Xunit" Version="3.0.0-rc3" />
+    <PackageReference Include="FSharpPlus" Version="1.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="3.0.4" />
     <PackageReference Include="MSTest.TestFramework" Version="3.0.4" />
@@ -31,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\src\LibHw6\LibHw6.fsproj" />
     <ProjectReference Include="..\src\LibHw2\LibHw2.fsproj" />
     <ProjectReference Include="..\src\ImageProcessing\ImageProcessing.fsproj" />
     <ProjectReference Include="..\src\LibHw3\LibHw3.fsproj" />
