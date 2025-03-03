@@ -6,7 +6,7 @@ open FsCheck
 open FsCheck.Xunit
 open ImageProcessing
 
-module PropertyTests =
+module PropertyImageTests =
 
     [<Properties(MaxTest = 100)>]
 
