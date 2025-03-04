@@ -30,10 +30,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\LibHw7\LibHw7.fsproj" />
-    <ProjectReference Include="..\src\LibHw2\LibHw2.fsproj" />
-    <ProjectReference Include="..\src\ImageProcessing\ImageProcessing.fsproj" />
-    <ProjectReference Include="..\src\LibHw3\LibHw3.fsproj" />
-    <ProjectReference Include="..\src\LibHw1\LibHw1.fsproj" />
   </ItemGroup>
 
 </Project>
