@@ -9,9 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="TestsImageProc.fs" />
-    <Compile Include="TestsHw3.fs" />
-    <Compile Include="TestHw1.fs" />
+    <Compile Include="TestsHw7.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
@@ -31,10 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\LibHw2\LibHw2.fsproj" />
-    <ProjectReference Include="..\src\ImageProcessing\ImageProcessing.fsproj" />
-    <ProjectReference Include="..\src\LibHw3\LibHw3.fsproj" />
-    <ProjectReference Include="..\src\LibHw1\LibHw1.fsproj" />
+    <ProjectReference Include="..\src\LibHw7\LibHw7.fsproj" />
   </ItemGroup>
 
 </Project>
