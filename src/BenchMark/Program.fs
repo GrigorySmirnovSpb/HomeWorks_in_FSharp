@@ -25,10 +25,10 @@ type ArrayBenchmark() =
     member this.GetArrayToSort () =
         this.ArrayToSort <- Array.init this.ArrayLength (fun _ -> this.Random.NextDouble())
 
-    [<Benchmark(Baseline = true)>]
+    [<Benchmark>]
     member this.MergeBenchArray () = MergeSort this.ArrayToSort compare
 
-    [<Benchmark>]
+    [<Benchmark(Baseline = true)>]
     member this.QuickBenchArray () = QuickSort this.ArrayToSort compare
 
     [<Benchmark>]
@@ -50,7 +50,7 @@ type ListBenchmark() =
     member this.GetListToSort () = 
         this.ListToSort <- List.init this.ListLength (fun _ -> this.Random.NextDouble()) 
 
-    [<Benchmark(Baseline = true)>]
+    [<Benchmark>]
     member this.MergeBenchList () = mergeSort (fromList this.ListToSort) compare
 
     [<Benchmark>]
@@ -72,7 +72,6 @@ module Main =
                         .WithOptions(ConfigOptions.DisableOptimizationsValidator)
                         .AddColumn(StatisticColumn.Median)
         let benchmarks =
-            BenchmarkSwitcher [| typeof<ArrayBenchmark>; typeof<ListBenchmark> |]
-
+            BenchmarkSwitcher [| typeof<ArrayBenchmark>; typeof<ListBenchmark>|]
         benchmarks.Run argv |> ignore
         0
