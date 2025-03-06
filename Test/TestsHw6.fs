@@ -251,21 +251,21 @@ module PropertyTreeTests =
     type AssocFoldAndFoldBack() =
         
         [<Property>]
-        member _.intFoldTest(tree: MyTree<int>) =
+        member _.intFoldsTest(tree: MyTree<int>) =
             let sum acc value = value + acc
             let actsum = MyTree.fold sum 0 tree
             let expsum = MyTree.foldBack sum 0 tree
             Assert.Equal(actsum, expsum)
 
         [<Property>]
-        member _.charFoldTest(tree: MyTree<char>) =
+        member _.charFoldsTest(tree: MyTree<char>) =
             let sum acc value = value + acc
             let actsum = MyTree.fold sum '0' tree
             let expsum = MyTree.foldBack sum '0' tree
             Assert.Equal(actsum, expsum)
 
         [<Property>]
-        member _.arrFoldTest(tree: MyTree<array<int>>) =
+        member _.arrFoldsTest(tree: MyTree<array<int>>) =
             let sum acc value = Array.sum value + acc
             let actsum = MyTree.fold sum 0 tree
             let expsum = MyTree.foldBack sum 0 tree
