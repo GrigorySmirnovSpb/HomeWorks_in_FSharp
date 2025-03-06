@@ -29,6 +29,12 @@ module PropertyQtreeTest =
                     multedMat[i,j] <- addFunc multedMat[i,j] (mulFunc mat1[i,k] mat2[k,j])
             multedMat
 
+    let createMapedMatr func matr1 matr2 =
+        let rmatr1 = toArray matr1
+        let rmatr2 = toArray matr2
+        let resMatr = Array.map2 func rmatr1 rmatr2
+        resMatr
+
     let createQtree matr =
         let sqmatr = createSquareMatrix matr
         let qmatr = createQuadMatrix sqmatr 0 0 (Array2D.length1 sqmatr)
@@ -109,9 +115,7 @@ module PropertyQtreeTest =
         [<Property>]    
         member _.intTest (size: uint) =
             let matr = Gen.sample (int size) 2 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.choose (-100000, 100000)))
-            let matr11d = PropertyQtreeTest.toArray matr.[0]
-            let matr21d = PropertyQtreeTest.toArray matr.[1]
-            let expmatr = Array.map2 (fun x y -> x + y) matr11d matr21d    
+            let expmatr = PropertyQtreeTest.createMapedMatr (fun x y -> x + y) matr.[0] matr.[1]   
             let qmatr1, qsize1 = PropertyQtreeTest.createQtree matr.[0]
             let qmatr2, qsize2 = PropertyQtreeTest.createQtree matr.[1]
             let actqmatr = map2 (+) qmatr1 qmatr2
@@ -123,9 +127,7 @@ module PropertyQtreeTest =
         [<Property>]
         member _.charTest (size: uint) =
             let matr = Gen.sample (int size) 2 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.elements {' ' .. '~'}))
-            let matr11d = PropertyQtreeTest.toArray matr.[0]
-            let matr21d = PropertyQtreeTest.toArray matr.[1]
-            let expmatr = Array.map2 (fun x y -> x + y) matr11d matr21d    
+            let expmatr = PropertyQtreeTest.createMapedMatr (fun x y -> x + y) matr.[0] matr.[1]   
             let qmatr1, qsize1 = PropertyQtreeTest.createQtree matr.[0]
             let qmatr2, qsize2 = PropertyQtreeTest.createQtree matr.[1]
             let actqmatr = map2 (+) qmatr1 qmatr2
@@ -137,9 +139,7 @@ module PropertyQtreeTest =
         [<Property>]    
         member _.floatTest (size: uint) =
             let matr = Gen.sample (int size) 2 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.elements {-infinityf .. infinityf}))
-            let matr11d = PropertyQtreeTest.toArray matr.[0]
-            let matr21d = PropertyQtreeTest.toArray matr.[1]
-            let expmatr = Array.map2 (fun x y -> x + y) matr11d matr21d    
+            let expmatr = PropertyQtreeTest.createMapedMatr (fun x y -> x + y) matr.[0] matr.[1]      
             let qmatr1, qsize1 = PropertyQtreeTest.createQtree matr.[0]
             let qmatr2, qsize2 = PropertyQtreeTest.createQtree matr.[1]
             let actqmatr = map2 (+) qmatr1 qmatr2
