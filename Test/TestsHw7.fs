@@ -18,7 +18,7 @@ module PropertyQtreeTest =
             mat.[row, col]
         )
 
-    let multMatr addFunc mulFunc mat1 mat2 = 
+    let multMatr mulFunc addFunc mat1 mat2 = 
         if Array2D.length1 mat1 <> Array2D.length2 mat2
         then failwith "Matrices have different sizes"
         else 
@@ -29,7 +29,7 @@ module PropertyQtreeTest =
                     multedMat[i,j] <- addFunc multedMat[i,j] (mulFunc mat1[i,k] mat2[k,j])
             multedMat
 
-    let createMapedMatr func matr1 matr2 =
+    let createMaped2Matr func matr1 matr2 =
         let rmatr1 = toArray matr1
         let rmatr2 = toArray matr2
         let resMatr = Array.map2 func rmatr1 rmatr2
@@ -56,6 +56,33 @@ module PropertyQtreeTest =
             }
         genMatrix
 
+    let testMap matr size func =
+        let heigth = Array2D.length1 matr
+        let wide = Array2D.length2 matr
+        let expmatr = Array2D.map func matr
+        let qmatr, qsize = createQtree matr         
+        let mapedMatr = map func qmatr
+        let actmatr = createFinalMatrix mapedMatr qsize heigth wide
+        expmatr, actmatr
+
+    let testMap2 matr1 matr2 size func =
+        let expmatr = createMaped2Matr func matr1 matr2
+        let qmatr1, qsize1 = createQtree matr1
+        let qmatr2, qsize2 = createQtree matr2
+        let actqmatr = map2 func qmatr1 qmatr2
+        let actmatr2d = createFinalMatrix actqmatr qsize1 size size
+        let actmatr = toArray actmatr2d
+        let fequal = Array.forall2 (=) actmatr expmatr
+        fequal
+
+    let testMult matr1 matr2 size mulFunc addFunc =
+        let expmatr= multMatr mulFunc addFunc matr1 matr2
+        let qmatr1, qsize1 = createQtree matr1
+        let qmatr2, qsize2 = createQtree matr2
+        let actqmatr = multiplyMatrix mulFunc addFunc qmatr1 qsize1 qmatr2 qsize2
+        let actmatr = createFinalMatrix actqmatr qsize1 size size
+        expmatr, actmatr
+
    [<Properties(MaxTest = 100)>]
     type idTests() =
 
@@ -80,102 +107,58 @@ module PropertyQtreeTest =
     type mapTest() =
 
         [<Property>]
-        member _.intTest (matr: int array2d) = 
-            let heigth = Array2D.length1 matr
-            let wide = Array2D.length2 matr
-            let expmatr = Array2D.map ((+) 1) matr
-            let qmatr, qsize = PropertyQtreeTest.createQtree matr
-            let mapedMatr = map ((+) 1) qmatr
-            let actmatr = PropertyQtreeTest.createFinalMatrix mapedMatr qsize heigth wide
+        member _.intTest (size: uint) = 
+            let matr = Gen.sample (int size) 1 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.elements {-100000..100000}))
+            let expmatr, actmatr = PropertyQtreeTest.testMap matr.[0] (int size) ((+) 1) 
             Assert.Equal(expmatr, actmatr)
 
         [<Property>]
-        member _.charTest (matr: char array2d) = 
-            let heigth = Array2D.length1 matr
-            let wide = Array2D.length2 matr
-            let expmatr = Array2D.map ((+) '1') matr
-            let qmatr, qsize = PropertyQtreeTest.createQtree matr
-            let mapedMatr = map ((+) '1') qmatr
-            let actmatr = PropertyQtreeTest.createFinalMatrix mapedMatr qsize heigth wide
+        member _.charTest (size: uint) = 
+            let matr = Gen.sample (int size) 1 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.elements {' '..'~'}))
+            let expmatr, actmatr = PropertyQtreeTest.testMap matr.[0] (int size) ((+) '1')
             Assert.Equal(expmatr, actmatr)
 
         [<Property>]
-        member _.floatTest (size: uint) = 
-            let matr = Gen.sample (int size) 1 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.elements {-infinityf .. infinityf}))
-            let heigth = Array2D.length1 matr.[0]
-            let wide = Array2D.length2 matr.[0]
-            let expmatr = Array2D.map ((+) 1f) matr.[0]
-            let qmatr, qsize = PropertyQtreeTest.createQtree matr.[0]
-            let mapedMatr = map ((+) 1f) qmatr
-            let actmatr = PropertyQtreeTest.createFinalMatrix mapedMatr qsize heigth wide
+        member _.floatTest (size: uint) =
+            let matr = Gen.sample (int size) 1 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.elements {-infinityf..infinityf}))
+            let expmatr, actmatr = PropertyQtreeTest.testMap matr.[0] (int size) ((+) 1f) 
             Assert.Equal(expmatr, actmatr)
 
     type map2Test()=
 
         [<Property>]    
         member _.intTest (size: uint) =
-            let matr = Gen.sample (int size) 2 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.choose (-100000, 100000)))
-            let expmatr = PropertyQtreeTest.createMapedMatr (fun x y -> x + y) matr.[0] matr.[1]   
-            let qmatr1, qsize1 = PropertyQtreeTest.createQtree matr.[0]
-            let qmatr2, qsize2 = PropertyQtreeTest.createQtree matr.[1]
-            let actqmatr = map2 (+) qmatr1 qmatr2
-            let actmatr2d = PropertyQtreeTest.createFinalMatrix actqmatr qsize1 (int size) (int size)
-            let actmatr = PropertyQtreeTest.toArray actmatr2d
-            let fequal = Array.forall2 (=) actmatr expmatr
+            let matr = Gen.sample (int size) 2 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.elements {-100000..100000}))
+            let fequal = PropertyQtreeTest.testMap2 matr.[0] matr.[1] (int (int size))(+)
             Assert.True(fequal)
 
         [<Property>]
         member _.charTest (size: uint) =
-            let matr = Gen.sample (int size) 2 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.elements {' ' .. '~'}))
-            let expmatr = PropertyQtreeTest.createMapedMatr (fun x y -> x + y) matr.[0] matr.[1]   
-            let qmatr1, qsize1 = PropertyQtreeTest.createQtree matr.[0]
-            let qmatr2, qsize2 = PropertyQtreeTest.createQtree matr.[1]
-            let actqmatr = map2 (+) qmatr1 qmatr2
-            let actmatr2d = PropertyQtreeTest.createFinalMatrix actqmatr qsize1 (int size) (int size)
-            let actmatr = PropertyQtreeTest.toArray actmatr2d
-            let fequal = Array.forall2 (=) actmatr expmatr
+            let matr = Gen.sample (int size) 2 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.elements {' '..'~'}))
+            let fequal = PropertyQtreeTest.testMap2 matr.[0] matr.[1] (int (int size))(+)
             Assert.True(fequal)
 
         [<Property>]    
         member _.floatTest (size: uint) =
-            let matr = Gen.sample (int size) 2 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.elements {-infinityf .. infinityf}))
-            let expmatr = PropertyQtreeTest.createMapedMatr (fun x y -> x + y) matr.[0] matr.[1]      
-            let qmatr1, qsize1 = PropertyQtreeTest.createQtree matr.[0]
-            let qmatr2, qsize2 = PropertyQtreeTest.createQtree matr.[1]
-            let actqmatr = map2 (+) qmatr1 qmatr2
-            let actmatr2d = PropertyQtreeTest.createFinalMatrix actqmatr qsize1 (int size) (int size)
-            let actmatr = PropertyQtreeTest.toArray actmatr2d
-            let fequal = Array.forall2 (=) actmatr expmatr
+            let matr = Gen.sample (int size) 2 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.elements{-infinityf..infinityf}))
+            let fequal = PropertyQtreeTest.testMap2 matr.[0] matr.[1] (int (int size))(+)
             Assert.True(fequal)
 
     type multTest() =
 
         [<Property>]    
         member _.intTest (size: uint) =
-            let matr = Gen.sample (int size) 2 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.choose (-100000, 100000)))
-            let expmatr= PropertyQtreeTest.multMatr (+) ( * ) matr.[0] matr.[1]
-            let qmatr1, qsize1 = PropertyQtreeTest.createQtree matr.[0]
-            let qmatr2, qsize2 = PropertyQtreeTest.createQtree matr.[1]
-            let actqmatr = multiplyMatrix ( * ) (+) qmatr1 qsize1 qmatr2 qsize2
-            let actmatr = PropertyQtreeTest.createFinalMatrix actqmatr qsize1 (int size) (int size)
+            let matr = Gen.sample (int size) 2 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.elements {-100000..100000}))
+            let expmatr, actmatr = PropertyQtreeTest.testMult matr.[0] matr.[1] (int (int size)) ( * ) (+)
             Assert.Equal(expmatr, actmatr)
         
         [<Property>]    
         member _.charTest (size: uint) =
             let matr = Gen.sample (int size) 2 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.elements {' ' .. '~'}))
-            let expmatr= PropertyQtreeTest.multMatr (+) (fun x y -> char (int x * int y)) matr.[0] matr.[1]
-            let qmatr1, qsize1 = PropertyQtreeTest.createQtree matr.[0]
-            let qmatr2, qsize2 = PropertyQtreeTest.createQtree matr.[1]
-            let actqmatr = multiplyMatrix (fun x y -> char (int x * int y)) (+) qmatr1 qsize1 qmatr2 qsize2
-            let actmatr = PropertyQtreeTest.createFinalMatrix actqmatr qsize1 (int size) (int size)
+            let expmatr, actmatr = PropertyQtreeTest.testMult matr.[0] matr.[1] (int (int size)) (fun x y -> char (int x * int y)) (+)
             Assert.Equal(expmatr, actmatr)
-
         [<Property>]    
         member _.floatTest (size: uint) =
             let matr = Gen.sample (int size) 2 (PropertyQtreeTest.matrixGenerator (int size) (int size) (Gen.elements {-infinityf .. infinityf}))
-            let expmatr= PropertyQtreeTest.multMatr (+) ( * ) matr.[0] matr.[1]
-            let qmatr1, qsize1 = PropertyQtreeTest.createQtree matr.[0]
-            let qmatr2, qsize2 = PropertyQtreeTest.createQtree matr.[1]
-            let actqmatr = multiplyMatrix ( * ) (+) qmatr1 qsize1 qmatr2 qsize2
-            let actmatr = PropertyQtreeTest.createFinalMatrix actqmatr qsize1 (int size) (int size)
+            let expmatr, actmatr = PropertyQtreeTest.testMult matr.[0] matr.[1] (int (int size)) ( * ) (+)
             Assert.Equal(expmatr, actmatr)
