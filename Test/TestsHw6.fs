@@ -156,6 +156,29 @@ module PropertyTreeTests =
             let expprod = List.fold prod 2f (MyTree.treeToList tree)
             Assert.Equal(actprod, expprod)
 
+    type AssocFuncTests()=
+
+        [<Property>]
+        member _.intsumTest (value1, value2: int) =
+            let sum acc value = value + acc
+            let actsum = sum value1 value2
+            let expsum = sum value2 value1
+            Assert.Equal(expsum, actsum)
+
+        [<Property>]
+        member _.charsumTest (value1, value2: char) =
+            let sum acc value = value + acc
+            let actsum = sum value1 value2
+            let expsum = sum value2 value1
+            Assert.Equal(expsum, actsum)
+
+        [<Property>]
+        member _.floatsumTest (value1, value2: float32) =
+            let sum acc value = value + acc
+            let actsum = sum value1 value2
+            let expsum = sum value2 value1
+            Assert.Equal(expsum, actsum)
+
     type AssocSumFoldsTests() =
 
         [<Property>]
