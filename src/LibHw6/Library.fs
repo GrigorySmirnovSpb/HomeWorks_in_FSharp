@@ -20,7 +20,7 @@ module MyTree =
 
     let rec foldBack func tree acc =
         match tree with
-        | Leaf value -> func acc value
+        | Leaf value -> func value acc
         | Node children -> NonEmptyList.foldBack (fun child acc -> foldBack func child acc) children acc
 
     let rec map func tree =
@@ -29,7 +29,7 @@ module MyTree =
         | Node children -> Node(NonEmptyList.map (fun child -> map func child) children)
 
     let height tree =
-        let rec heighthelper nowlen tree =
+        let rec heighthelper nowlen tree =          
             match tree with
             | Leaf _ -> nowlen
             | Node children ->
