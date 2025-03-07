@@ -18,10 +18,10 @@ module MyTree =
         | Leaf value -> func acc value
         | Node children -> NonEmptyList.fold (fun acc child -> fold func acc child) acc children
 
-    let rec foldBack func acc tree =
+    let rec foldBack func tree acc =
         match tree with
         | Leaf value -> func acc value
-        | Node children -> NonEmptyList.foldBack (fun child acc -> foldBack func acc child) children acc
+        | Node children -> NonEmptyList.foldBack (fun child acc -> foldBack func child acc) children acc
 
     let rec map func tree =
         match tree with
